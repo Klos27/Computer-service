@@ -4,8 +4,13 @@
 	<div class="col-md-6 offset-md-3">
 		<form id="register-form">
 			<div class="form-group">
-				<label for="username">Username:</label>
-				<input type="text" required min="4" max="25" name="username" id="username" class="form-control"/>
+				<label for="first_name">First name:</label>
+				<input type="text" required min="4" max="25" name="first_name" id="first_name" class="form-control"/>
+			</div>
+
+			<div class="form-group">
+				<label for="last_name">Last name:</label>
+				<input type="text" required min="4" max="25" name="last_name" id="last_name" class="form-control"/>
 			</div>
 			
 			<div class="form-group">

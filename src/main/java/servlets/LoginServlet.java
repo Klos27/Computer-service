@@ -8,10 +8,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dao.UserDao;
+import models.User;
+import services.HelperService;
 import services.UserValidationService;
 
-@WebServlet(urlPatterns = "/login")
+@WebServlet(urlPatterns = "/auth/login")
 public class LoginServlet extends HttpServlet {
 
 	private UserValidationService userValidationService = new UserValidationService();
@@ -24,22 +28,39 @@ public class LoginServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String username = request.getParameter("username");
+		UserDao db;
+		User user;
+		PrintWriter out = response.getWriter();
+
+		String email = request.getParameter("email");
 		String password = request.getParameter("password");
 		
-		boolean isUserValid = userValidationService.isUserValid(username, password);
-		
-		if(isUserValid) {
+		if(HelperService.isEmpty(email) && HelperService.isEmpty(password)) {
+			
+			db = new UserDao();
+			db.open();
 
-			request.getSession().setAttribute("username", username);
+			user = db.login(email, password);
+				
+			if(user != null) {
+				HttpSession session = request.getSession(true);
+				session.setAttribute("user",  user);
+			
+				out.print("user");
+			} else {
+				response.setStatus(403);
+				out.print("Wrong credentials!");
+			}
+			
+			db.close();
 				
 		} else {
 			response.setStatus(403);
-			PrintWriter out = response.getWriter();
-			out.print("Invalid credentials!");
-			out.flush();	
+			out.print("You need to enter all fields!");
 		}
-			
+		
+		out.close();
+		
 	}
 
 }

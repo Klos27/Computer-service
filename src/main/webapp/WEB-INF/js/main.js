@@ -5,7 +5,8 @@ $(document).ready(function () {
         e.preventDefault();
 
     	var credentials = {
-    		username: $('#username').val(),
+    		first_name: $('#first_name').val(),
+    		last_name: $('#last_name').val(),
     		password: $('#password').val(),
     		password2: $('#password2').val(),
     		email: $('#email').val()
@@ -13,7 +14,7 @@ $(document).ready(function () {
 
         $.post( "register", credentials)
   		.done(function() {
-  			openModal('Congratulations!', 'You have succesfully registered in our system.', '/login');
+  			openModal('Congratulations!', 'You have succesfully registered in our system.', '/auth/login');
   		})
   		.fail(function(data) {
   			showError(data.responseText);
@@ -25,13 +26,13 @@ $(document).ready(function () {
         e.preventDefault();
 
     	var credentials = {
-    		username: $('#username').val(),
+    		email: $('#email').val(),
     		password: $('#password').val(),
     	}
 
         $.post( "login", credentials)
   		.done(function() {
-  			window.location.href = '/profile';
+  			window.location.href = '/user/profile';
   		})
   		.fail(function(data) {
   			showError(data.responseText);

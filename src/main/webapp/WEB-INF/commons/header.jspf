@@ -8,7 +8,7 @@
     <meta name="author" content="zabka229">
     
 	<title>Computer Service</title>
-	<link href="webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body>
@@ -28,25 +28,25 @@
 						<a class="nav-link" href="/welcome">Home</a>
 					</li>
 						
-					<c:if test = "${username == null}">
+					<c:if test = "${user == null}">
 
-						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/login' ? 'active' : ''}">
-							<a class="nav-link" href="/login">Login</a>
+						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/auth/login' ? 'active' : ''}">
+							<a class="nav-link" href="/auth/login">Login</a>
 						</li>
-						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/register' ? 'active' : ''}">
-							<a class="nav-link" href="/register">Register</a>
+						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/auth/register' ? 'active' : ''}">
+							<a class="nav-link" href="/auth/register">Register</a>
 						</li>
 					
 					</c:if>
 
-					<c:if test = "${username != null}">
+					<c:if test = "${user != null}">
 
-						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/profile' ? 'active' : ''}">
-							<a class="nav-link" href="/profile">Profil</a>
+						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/profile' ? 'active' : ''}">
+							<a class="nav-link" href="/user/profile">Profil</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link" href="/logout">Logout</a>
+							<a class="nav-link" href="/user/logout">Logout</a>
 						</li>
 					
 					</c:if>

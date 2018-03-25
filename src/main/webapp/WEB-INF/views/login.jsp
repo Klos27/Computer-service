@@ -4,8 +4,8 @@
 	<div class="col-md-6 offset-md-3">
 		<form id="login-form">
 			<div class="form-group">
-				<label for="username">Enter your username:</label>
-				<input type="text" name="username" id="username" class="form-control"/>
+				<label for="email">Enter your e-mail:</label>
+				<input type="email" name="email" id="email" class="form-control"/>
 			</div>
 			
 			<div class="form-group">
