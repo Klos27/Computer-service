@@ -37,7 +37,7 @@
 							<a class="nav-link" href="/auth/register">Register</a>
 						</li>
 					
-						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact' || requestScope['javax.servlet.forward.request_uri'] == '/') ? 'active' : '' }">
+						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact' ) ? 'active' : '' }">
 							<a class="nav-link" href="/contact">Contact</a>
 						</li>
 					</c:if>
@@ -82,7 +82,7 @@
 							</li>
 						</c:if>
 						
-						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact' || requestScope['javax.servlet.forward.request_uri'] == '/') ? 'active' : '' }">
+						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact') ? 'active' : '' }">
 							<a class="nav-link" href="/contact">Contact</a>
 						</li>
 						
