@@ -59,4 +59,23 @@ $(document).ready(function () {
     	$('#error').html('<div class="alert alert-danger alert-dismissible fade show text-center" role="alert"><strong>Warning!</strong> <span>'+ error +'</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
     }
     
+    $("#add-request-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		computer_producer: $('#computer_producer').val(),
+    		computer_serial: $('#computer_serial').val(),
+    		computer_description: $('#computer_description').val()
+    	}
+
+        $.post( "/user/new-request", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully added service request in our system.', '/user/new-request');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
 });

@@ -37,19 +37,61 @@
 							<a class="nav-link" href="/auth/register">Register</a>
 						</li>
 					
+						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact' ) ? 'active' : '' }">
+							<a class="nav-link" href="/contact">Contact</a>
+						</li>
 					</c:if>
 
 					<c:if test = "${user != null}">
-
 						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/profile' ? 'active' : ''}">
-							<a class="nav-link" href="/user/profile">Profil</a>
+							<a class="nav-link" href="/user/profile">Profile</a>
+						</li>
+						
+						<c:if test = "${user.getRole() == 0}">
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/new-request' ? 'active' : ''}">
+								<a class="nav-link" href="/user/new-request">Create request</a>
+							</li>
+							
+							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/user/existing-requests' ? 'active' : ''}>
+								<a class="nav-link" href="/user/existing-requests">View requests</a>
+							</li>
+						</c:if>
+						
+						<c:if test = "${user.getRole() == 3}">
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
+								<a class="nav-link" href="/service/new-requests">New Rq</a>
+							</li>
+							
+							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
+								<a class="nav-link" href="/service/existing-requests">Existing Rq</a>
+							</li>
+						</c:if>
+						
+						<c:if test = "${user.getRole() == 2}">
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
+								<a class="nav-link" href="/service/new-requests">New Rq</a>
+							</li>
+							
+							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
+								<a class="nav-link" href="/service/existing-requests">Existing Rq</a>
+							</li>
+						</c:if>
+						<c:if test = "${user.getRole() == 1}">
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/contracts' ? 'active' : ''}">
+								<a class="nav-link" href="/service/contracts">Contracts</a>
+							</li>
+						</c:if>
+						
+						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact') ? 'active' : '' }">
+							<a class="nav-link" href="/contact">Contact</a>
 						</li>
 						
 						<li class="nav-item">
 							<a class="nav-link" href="/user/logout">Logout</a>
 						</li>
-					
 					</c:if>
+					
+	
 					
 				</ul>
 			</div>
