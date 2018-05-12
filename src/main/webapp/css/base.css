@@ -1,0 +1,38 @@
+.navbar {
+    padding: 1rem 1rem !important;
+}
+
+.header-information {
+	height: 100px;
+	color: #bfbfbf;
+}
+
+.logo-margin {
+	margin-top: -10px;
+}
+
+.icon-circle {
+	width: 40px;
+	height: 40px;
+	border: 2px solid #bfbfbf;
+	border-radius: 50%;
+	text-align: center;
+	padding-top: 5px;
+	display: inline-block;
+}
+
+.navbar-blue {
+	background: #162648;
+}
+
+.text-black {
+	color: black;
+}
+
+.text-light-blue {
+	color: #44c1ed;
+}
+
+.font-bold {
+	font-weight: 500 !important;
+}

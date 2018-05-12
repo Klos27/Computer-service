@@ -1,6 +1,6 @@
 <%@ include file="../commons/header.jspf" %>
 
-<h1 class="text-center">Change Password</h1>
+<h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Change password<i class="fas fa-angle-right ml-3"></i></h1>
 
 <div class="row">
 	<div class="col-md-6 offset-md-3">
@@ -15,8 +15,9 @@
 				<input type="password" required min="4" max="25" name="new_password" id="new_password" class="form-control"/>
 			</div>
 			
-		<button type="submit" class="btn btn-success btn-block">Change Password!</button>
-		
+			<button type="submit" class="btn btn-danger btn-block">Change password!</button>
+			<a href="/user/profile" class="btn btn-secondary btn-block">Go back</a>		
+			
 		</form>
 	</div>
 </div>
