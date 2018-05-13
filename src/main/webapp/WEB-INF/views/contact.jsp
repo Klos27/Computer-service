@@ -14,19 +14,23 @@
 
 		<form id="contact-form" >
 			<p>Contact us!</p>
+			
 			<div class="form-group">
-				<%--<label>Name</label>--%>
-				<input name="name" placeholder="Name">
+				<label for="name">Name:</label>
+				<input type="text" required min="4" max="25" name="name" id="name" class="form-control"/>
 			</div>
+
 			<div class="form-group">
-				<%--<label>Email</label>--%>
-				<input name="email" type="email" placeholder="email">
+				<label for="email">Email:</label>
+				<input type="email" required name="email" id="email" class="form-control"/>
 			</div>
+			
 			<div class="form-group">
-				<%--<label>Message</label>--%>
-				<textarea name="message" placeholder="Enter your message message"></textarea>
+				<label for="message">Message:</label>
+				<textarea name="message" id="message" class="form-control"></textarea>
 			</div>
-			<input id="submit" name="submit" type="submit" value="Send">
+			
+			<button type="submit" class="btn btn-success btn-block">Send a message!</button>
 
 		</form>
 	</div>
