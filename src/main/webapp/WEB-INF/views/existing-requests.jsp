@@ -1,5 +1,5 @@
 <%@ include file="../commons/header.jspf" %>
-
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Current requests<i class="fas fa-angle-right ml-3"></i></h1>
 
 <div class="row">

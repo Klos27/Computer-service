@@ -1,7 +1,7 @@
 package servlets;
 
-import models.Request;
-import services.WorkerService;
+import models.ServiceRequest;
+import services.ServiceRequestService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,11 +15,11 @@ import java.util.List;
 @WebServlet("/service/new-requests")
 public class NewRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	WorkerService workerService = new WorkerService();
+	ServiceRequestService serviceRequestService = new ServiceRequestService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-		List<Request> requests = workerService.showNewRequests();
+		List<ServiceRequest> requests = serviceRequestService.showNewRequests();
 		System.out.println(requests);
 		request.removeAttribute("requests");
 		request.setAttribute("requests", requests);

@@ -1,8 +1,8 @@
 package servlets;
 
-import models.Request;
+import models.ServiceRequest;
 import models.User;
-import services.WorkerService;
+import services.ServiceRequestService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,14 +17,14 @@ import java.util.List;
 @WebServlet("/service/existing-requests")
 public class ExistingRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	WorkerService workerService = new WorkerService();
+	ServiceRequestService serviceRequestService = new ServiceRequestService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
 		User user = (User) session.getAttribute("user");
 
 
-		List<Request> requests = workerService.showExistingRequests(user.getId());
+		List<ServiceRequest> requests = serviceRequestService.showExistingRequests(user.getId());
 		System.out.println(requests);
 		request.removeAttribute("existingRequests");
 		request.setAttribute("existingRequests", requests);
