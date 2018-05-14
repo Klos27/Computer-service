@@ -1,6 +1,7 @@
 package servlets;
 
 import models.Request;
+import models.User;
 import services.WorkerService;
 
 import javax.servlet.ServletException;
@@ -8,22 +9,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 
-@WebServlet("/service/new-requests")
-public class NewRequestServlet extends HttpServlet {
+@WebServlet("/service/existing-requests")
+public class ExistingRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	WorkerService workerService = new WorkerService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+		User user = (User) session.getAttribute("user");
 
-		List<Request> requests = workerService.showNewRequests();
+
+		List<Request> requests = workerService.showExistingRequests(user.getId());
 		System.out.println(requests);
-		request.removeAttribute("requests");
-		request.setAttribute("requests", requests);
-		request.getRequestDispatcher("/WEB-INF/views/new-requests.jsp").forward(request, response);
+		request.removeAttribute("existingRequests");
+		request.setAttribute("existingRequests", requests);
+		request.getRequestDispatcher("/WEB-INF/views/existing-requests.jsp").forward(request, response);
 	}
 
 

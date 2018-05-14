@@ -12,4 +12,11 @@ public class WorkerService {
     public List<Request> showNewRequests() {
         return workerDAO.showNewRequests();
     }
+    public List<Request> showExistingRequests(int workerId) {
+        return workerDAO.showExistingRequests(workerId);
+    }
+
+    public void takeRequest(int id_employee, int id_service_request) {
+        workerDAO.takeRequest(id_employee, id_service_request);
+    }
 }
