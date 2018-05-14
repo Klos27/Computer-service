@@ -28,7 +28,7 @@ public class UserDao extends DAOManager {
         			      
         	ResultSet rs = ps.executeQuery();
             if(rs.next()) {
-                user = new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getInt("role"));
+                user = new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getInt("role"), rs.getString("address"), rs.getString("phone"));
             }
         			
         } catch (SQLException e) {
@@ -75,6 +75,89 @@ public class UserDao extends DAOManager {
             
         } catch (SQLException e) {
             System.err.println("Error in inserting the user!");
+            e.printStackTrace();
+            return null;
+        } catch (Exception e) {
+            System.err.println("Error in hashing password!");
+			e.printStackTrace();
+            return null;
+		}
+                
+    }
+    
+    public User changeDetails(int id, String first_name, String last_name, String address, String phone) {
+    	
+        try {
+        	
+        	PreparedStatement ps = conn.prepareStatement(  
+        			"update users set first_name = ?, last_name = ?, address = ?, phone = ? where id = ?");  
+        	ps.setString(1, first_name);  
+        	ps.setString(2, last_name);  
+        	ps.setString(3, address);  
+        	ps.setString(4, phone);  
+        	ps.setInt(5, id);  
+
+        	int results = ps.executeUpdate();
+            ps.close();
+            
+            if(results > 0) {
+            	
+            	User user = null;
+            	
+            	ps = conn.prepareStatement(  
+            			"select * from users where id = ?");  
+            	ps.setInt(1, id);  
+            			      
+            	ResultSet rs = ps.executeQuery();
+                if(rs.next()) {
+                    user = new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getInt("role"), rs.getString("address"), rs.getString("phone"));
+                }
+            	
+            	return user;
+
+            } else {
+            	return null;
+            }            
+                        
+        } catch (SQLException e) {
+            System.err.println("Error in changing details!");
+            e.printStackTrace();
+            return null;
+        }
+                
+    }
+    
+   public String changePassword(int id, String password, String new_password) {
+    	
+        try {
+        	
+        	password = DigestUtils.sha256Hex(password);
+        	new_password = DigestUtils.sha256Hex(new_password);
+        	
+        	PreparedStatement ps = conn.prepareStatement(  
+        			"select * from users where id = ? and password = ?");  
+        	ps.setInt(1, id);  
+        	ps.setString(2,  password);	
+        	
+        	ResultSet rs = ps.executeQuery();            
+            if(rs.next()) {
+            	
+            	ps = conn.prepareStatement(  
+            			"update users set password = ? where id = ?");  
+            	ps.setString(1, new_password);  
+            	ps.setInt(2, id);  
+
+            	int results = ps.executeUpdate();
+            	if(results > 0) {
+            		return "DONE";
+            	}
+            }
+        	ps.close();
+  
+            return null;
+                        
+        } catch (SQLException e) {
+            System.err.println("Error in changing details!");
             e.printStackTrace();
             return null;
         } catch (Exception e) {

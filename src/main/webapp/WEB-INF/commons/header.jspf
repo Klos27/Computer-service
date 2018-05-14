@@ -9,14 +9,63 @@
     
 	<title>Computer Service</title>
 	<link href="/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<link href="${pageContext.request.contextPath}/css/base.css" rel="stylesheet" type="text/css" > 
 </head>
 
 <body>
 
 <header class="mb-5">
-	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+
+	<div class="container d-none d-lg-block">
+		<div class="row header-information align-items-center">
+			<div class="col-md-4 logo-margin">
+				<i class="fas fa-desktop fa-3x text-light-blue mr-2"></i> 
+				<span class="display-4 text-black">Service</span>
+			</div>
+			<div class="col-md-8">
+				<div class="row">
+					<div class="col-md-4 p-0">
+						<div class="row">
+							<div class="col-auto">
+								<div class="icon-circle"><i class="fas fa-home text-black"></i></div>
+							</div>
+							<div class="col-auto p-0">
+								<span class="font-bold text-black">Warszawska 24</span><br/>
+								<span>31-155 Cracow</span>
+							</div>
+						</div>					
+					</div>
+					<div class="col-md-4 p-0">
+						<div class="row">
+							<div class="col-auto">
+								<div class="icon-circle"><i class="fas fa-clock text-black"></i></div>
+							</div>
+							<div class="col-auto p-0">
+								<span class="font-bold text-black">Opening time</span><br/>
+								<span>09:00 to 18:00</span>
+							</div>
+						</div>					
+					</div>
+					<div class="col-md-4 p-0">
+						<div class="row">
+							<div class="col-auto">
+								<div class="icon-circle"><i class="fas fa-envelope text-black"></i></div>
+							</div>
+							<div class="col-auto p-0">
+								<span class="font-bold text-black">Mail us</span><br/>
+								<span>computer@service.com</span>
+							</div>
+						</div>					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<nav class="navbar navbar-expand-md navbar-dark navbar-blue">
 		<div class="container">
-			<a class="navbar-brand" href="#">Computer Service</a>
+			<a class="navbar-brand d-md-none" href="#"><i class="fas fa-desktop text-light-blue mr-2"></i><span class="font-bold">Computer Service</span></a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
@@ -25,69 +74,69 @@
 				<ul class="navbar-nav mr-auto">
 
 					<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/welcome' || requestScope['javax.servlet.forward.request_uri'] == '/') ? 'active' : '' }">
-						<a class="nav-link" href="/welcome">Home</a>
+						<a class="nav-link font-bold" href="/welcome">HOME</a>
 					</li>
 						
 					<c:if test = "${user == null}">
 
 						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/auth/login' ? 'active' : ''}">
-							<a class="nav-link" href="/auth/login">Login</a>
+							<a class="nav-link font-bold" href="/auth/login">LOGIN</a>
 						</li>
 						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/auth/register' ? 'active' : ''}">
-							<a class="nav-link" href="/auth/register">Register</a>
+							<a class="nav-link font-bold" href="/auth/register">REGISTER</a>
 						</li>
 					
 						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact' ) ? 'active' : '' }">
-							<a class="nav-link" href="/contact">Contact</a>
+							<a class="nav-link font-bold" href="/contact">CONTACT</a>
 						</li>
 					</c:if>
 
 					<c:if test = "${user != null}">
 						<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/profile' ? 'active' : ''}">
-							<a class="nav-link" href="/user/profile">Profile</a>
+							<a class="nav-link font-bold" href="/user/profile">PROFILE</a>
 						</li>
 						
 						<c:if test = "${user.getRole() == 0}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/new-request' ? 'active' : ''}">
-								<a class="nav-link" href="/user/new-request">Create request</a>
+								<a class="nav-link font-bold" href="/user/new-request">CREATE REQUEST</a>
 							</li>
 							
 							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/user/existing-requests' ? 'active' : ''}>
-								<a class="nav-link" href="/user/existing-requests">View requests</a>
+								<a class="nav-link font-bold" href="/user/existing-requests">VIEW REQUESTS</a>
 							</li>
 						</c:if>
 						
 						<c:if test = "${user.getRole() == 3}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
-								<a class="nav-link" href="/service/new-requests">New Rq</a>
+								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUEST</a>
 							</li>
 							
 							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
-								<a class="nav-link" href="/service/existing-requests">Existing Rq</a>
+								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUEST</a>
 							</li>
 						</c:if>
 						
 						<c:if test = "${user.getRole() == 2}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
-								<a class="nav-link" href="/service/new-requests">New Rq</a>
+								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUEST</a>
 							</li>
 							
 							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
-								<a class="nav-link" href="/service/existing-requests">Existing Rq</a>
+								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUEST</a>
 							</li>
 						</c:if>
 						<c:if test = "${user.getRole() == 1}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/contracts' ? 'active' : ''}">
-								<a class="nav-link" href="/service/contracts">Contracts</a>
+								<a class="nav-link font-bold" href="/service/contracts">CONTRACTS</a>
 							</li>
 						</c:if>
 						
 						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact') ? 'active' : '' }">
-							<a class="nav-link" href="/contact">Contact</a>
+							<a class="nav-link font-bold" href="/contact">CONTACT</a>
 						</li>
 						
 						<li class="nav-item">
-							<a class="nav-link" href="/user/logout">Logout</a>
+							<a class="nav-link font-bold" href="/user/logout">LOGOUT</a>
 						</li>
 					</c:if>
 					

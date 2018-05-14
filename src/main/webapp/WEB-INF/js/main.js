@@ -40,25 +40,6 @@ $(document).ready(function () {
 
     });
     
-    function openModal(title, body, redirect = 'default'){
-    	$('#myModal .modal-title').html(title);
-    	$('#myModal .modal-body').html(body);
-
-    	$('#myModal').modal({
-    	    backdrop    : 'static'
-    	});
-    	
-    	$('#myModal').on('hidden.bs.modal', function (e) {
-    		if(redirect != 'default') {
-                window.location.href = redirect;
-    		}
-    	});
-    }
-    
-    function showError(error) {
-    	$('#error').html('<div class="alert alert-danger alert-dismissible fade show text-center" role="alert"><strong>Warning!</strong> <span>'+ error +'</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
-    }
-    
     $("#add-request-form").submit(function (e) {
         e.preventDefault();
 
@@ -77,5 +58,62 @@ $(document).ready(function () {
   		})
 
     });
+    
+    $("#change-details-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		first_name: $('#first_name').val(),
+    		last_name: $('#last_name').val(),
+    		address: $('#address').val(),
+    		phone: $('#phone').val(),
+    	}
+
+        $.post( "change-details", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully changed your details.', '/user/profile');
+  		})
+  		.fail(function(data) {
+  			showError('Something went wrong!');
+  		})
+
+    });
+    
+    $("#change-password-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		password: $('#password').val(),
+    		new_password: $('#new_password').val()
+    	}
+
+        $.post( "change-password", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully changed your password.', '/user/profile');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
+    function openModal(title, body, redirect = 'default'){
+    	$('#myModal .modal-title').html(title);
+    	$('#myModal .modal-body').html(body);
+
+    	$('#myModal').modal({
+    	    backdrop    : 'static'
+    	});
+    	
+    	$('#myModal').on('hidden.bs.modal', function (e) {
+    		if(redirect != 'default') {
+                window.location.href = redirect;
+    		}
+    	});
+    }
+    
+    function showError(error) {
+    	$('#error').html('<div class="alert alert-danger alert-dismissible fade show text-center" role="alert"><strong>Warning!</strong> <span>'+ error +'</span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+    }
     
 });
