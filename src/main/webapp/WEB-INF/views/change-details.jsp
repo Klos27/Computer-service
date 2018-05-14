@@ -1,6 +1,6 @@
 <%@ include file="../commons/header.jspf" %>
 
-<h1 class="text-center">Change details</h1>
+<h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Change details<i class="fas fa-angle-right ml-3"></i></h1>
 
 <div class="row">
 	<div class="col-md-6 offset-md-3">
@@ -25,7 +25,8 @@
 				<input type="tel" value="${ user.phone }" min="4" max="13" pattern="[0-9]{3}-[0-9]{3}-[0-9]{3}" placeholder="xxx-xxx-xxx" name="phone" id="phone" class="form-control"/>
 			</div>
 			
-		<button type="submit" class="btn btn-success btn-block">Change details!</button>
+		<button type="submit" class="btn btn-danger btn-block">Change details!</button>
+		<a href="/user/profile" class="btn btn-secondary btn-block">Go back</a>
 		
 		</form>
 	</div>
