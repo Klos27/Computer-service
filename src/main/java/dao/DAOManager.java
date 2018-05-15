@@ -5,7 +5,7 @@ import java.sql.*;
 public class DAOManager {
 
     private static final String DRIVER = "com.mysql.jdbc.Driver";
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/computer_service";
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/computer_service?useUnicode=yes&characterEncoding=UTF-8";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "";
     
