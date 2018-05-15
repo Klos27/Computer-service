@@ -4,11 +4,12 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import models.ServiceRequest;
 import models.User;
+import models.ServiceRequest;
 
 public class ServiceRequestDao extends DAOManager {
 	
@@ -39,6 +40,68 @@ public class ServiceRequestDao extends DAOManager {
             return null;
 		}
                 
+    }
+    
+    public ArrayList<ServiceRequest> getAllServiceRequests(int userID) throws SQLException {
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        ArrayList<ServiceRequest> result = new ArrayList<>();
+        
+        try {
+            open();
+            stmt = conn.createStatement();
+            
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `service_request` where id_client = " + userID + " order by id desc");
+
+            while(rs.next()) {
+                result.add(new ServiceRequest(rs.getInt("id"), rs.getInt("id_client") , rs.getString("description"), rs.getInt("status"), rs.getDate("start_date"), rs.getDate("end_date")));
+            }
+            
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            close();
+        }
+        return result;
+    }
+    
+    public ServiceRequest getServiceRequest(int userId, int requestId) throws SQLException {
+    	Statement stmt = null;
+        ResultSet rs = null;
+        
+        ServiceRequest serviceRq = null;
+     
+        try {
+            open();
+            stmt = conn.createStatement();
+            
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `service_request` where id = " + requestId + " and id_client = " + userId);
+            if(rs.next())
+            	serviceRq = new ServiceRequest(rs.getInt("id"), rs.getInt("id_client") , rs.getString("description"), rs.getInt("status"), rs.getDate("start_date"), rs.getDate("end_date"));      
+      
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            close();
+        }
+        return serviceRq ;
     }
     public List<ServiceRequest> showNewRequests() {
         List<ServiceRequest> requests = new ArrayList<>();
