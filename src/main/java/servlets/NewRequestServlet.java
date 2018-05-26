@@ -20,7 +20,7 @@ public class NewRequestServlet extends HttpServlet {
 
 
 		List<ServiceRequest> requests = serviceRequestService.showNewRequests();
-		System.out.println(requests);
+		//System.out.println(requests);
 		request.removeAttribute("requests");
 		request.setAttribute("requests", requests);
 		request.getRequestDispatcher("/WEB-INF/views/new-requests.jsp").forward(request, response);

@@ -101,28 +101,28 @@
 								<a class="nav-link font-bold" href="/user/new-request">CREATE REQUEST</a>
 							</li>
 							
-							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/user/existing-requests' ? 'active' : ''}>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/user/existing-requests' ? 'active' : ''}">
 								<a class="nav-link font-bold" href="/user/existing-requests">VIEW REQUESTS</a>
 							</li>
 						</c:if>
 						
 						<c:if test = "${user.getRole() == 3}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
-								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUEST</a>
+								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUESTS</a>
 							</li>
 							
-							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
-								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUEST</a>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUESTS</a>
 							</li>
 						</c:if>
 						
 						<c:if test = "${user.getRole() == 2}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
-								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUEST</a>
+								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUESTS</a>
 							</li>
 							
-							<li class="nav-item" ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}>
-								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUEST</a>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUESTS</a>
 							</li>
 						</c:if>
 						<c:if test = "${user.getRole() == 1}">
