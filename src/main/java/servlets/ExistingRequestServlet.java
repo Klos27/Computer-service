@@ -25,7 +25,7 @@ public class ExistingRequestServlet extends HttpServlet {
 
 
 		List<ServiceRequest> requests = serviceRequestService.showExistingRequests(user.getId());
-		System.out.println(requests);
+		//System.out.println(requests);
 		request.removeAttribute("existingRequests");
 		request.setAttribute("existingRequests", requests);
 		request.getRequestDispatcher("/WEB-INF/views/existing-requests.jsp").forward(request, response);

@@ -94,7 +94,7 @@ public class AllServiceRequestServlet extends HttpServlet {
 					else
 						text.append("<td>" + sr.getEnd_date() + "</td>").append("\n");
 					
-					text.append("<td class=\"description\">" + sr.getDecription() + "</td>").append("\n");
+					text.append("<td class=\"description\">" + sr.getDescription() + "</td>").append("\n");
 					
 					text.append("</tr>").append("\n");
 				}			
@@ -154,7 +154,7 @@ public class AllServiceRequestServlet extends HttpServlet {
 					else
 						text.append("<td>" + sr.getEnd_date() + "</td>").append("\n");
 					
-					text.append("<td class=\"description\">" + sr.getDecription() + "</td>").append("\n");
+					text.append("<td class=\"description\">" + sr.getDescription() + "</td>").append("\n");
 					text.append("</tr>").append("\n");
 					text.append("</table>").append("\n");
 					
