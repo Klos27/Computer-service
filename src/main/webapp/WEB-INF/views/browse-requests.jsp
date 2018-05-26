@@ -31,22 +31,22 @@
 							<td align="center"><a href="?id=${ request.id }"> ${ request.id } </a></td>
 							<c:choose>
 							    <c:when test="${request.status=='0'}">
-		       						<td>New</td>
+		       						<td align="center">New</td>
 							    </c:when>
 							    <c:when test="${request.status=='1'}">
-		       						<td>Checking</td>
+		       						<td align="center">Checking</td>
 							    </c:when>
 							    <c:when test="${request.status=='2'}">
-		       						<td>In porgress</td>
+		       						<td align="center">In porgress</td>
 							    </c:when>	
 							    <c:when test="${request.status=='3'}">
-		       						<td>Waiting for payment</td>
+		       						<td align="center">Waiting for payment</td>
 							    </c:when>
 							    <c:when test="${request.status=='4'}">
-		       						<td>Ended</td>
+		       						<td align="center">Ended</td>
 							    </c:when>						    						    					    						        
 							    <c:otherwise>
-		       						<td>----</td>
+		       						<td align="center">----</td>
 							    </c:otherwise>
 							</c:choose>
 							<td align="center">${ request.start_date }</td>
@@ -70,7 +70,8 @@
 		    </c:when>
 		    <c:otherwise>
 	       	<%-- Display user's request's details--%>
-	  		<%-- Request Description: --%>	  						
+	  		<%-- Request Description: --%>
+	  			  						
 			<div class="row">
 			<div class="col-md-10 offset-md-1">
 				<table class="table">
@@ -89,22 +90,22 @@
 							<td align="center">${ requestDetails.id }</td>
 							<c:choose>
 							    <c:when test="${requestDetails.status=='0'}">
-		       						<td>New</td>
+		       						<td align="center">New</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='1'}">
-		       						<td>Checking</td>
+		       						<td align="center">Checking</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='2'}">
-		       						<td>In porgress</td>
+		       						<td align="center">In porgress</td>
 							    </c:when>	
 							    <c:when test="${requestDetails.status=='3'}">
-		       						<td>Waiting for payment</td>
+		       						<td align="center">Waiting for payment</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='4'}">
-		       						<td>Ended</td>
+		       						<td align="center">Ended</td>
 							    </c:when>						    						    					    						        
 							    <c:otherwise>
-		       						<td>----</td>
+		       						<td align="center">----</td>
 							    </c:otherwise>
 							</c:choose>
 							<td align="center">${ requestDetails.start_date }</td>
@@ -185,14 +186,46 @@
 			</div>								  							  						
 	  						 						
 	  		<%-- Payments: --%>	
-	  						
-	  			<br />[[ PAYMENTS WILL BE THERE ]]<br />
-	  			The final amount to be paid: <span class="price-higlight">${requestPayment}</span>
+	  				
+			<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Payment info<i class="fas fa-angle-right ml-3"></i></h4>
+	  		<div class="user-request-notification"> ${ userNotificationPayment } </div>		
+  			<div class="row">
+			<div class="col-md-10 offset-md-1">
+				<table class="table">
+					<thead align="center">
+						<tr>
+							<th>Invoice ID</th>
+							<th>Amount</th>
+							<th>Status</th>
+							<th>Invoice</th>
+						</tr>
+					</thead>
+					<tbody>						
+						<tr>
+							<td align="center">${ requestPayment.id }</td>
+							<td align="center"><span class="price-higlight">${ requestPayment.amount }</span></td>
+							<c:choose>
+							    <c:when test="${ requestPayment.status=='0' }">
+		       						<td align="center">Unpaid</td>
+							    </c:when>
+							    <c:when test="${ requestPayment.status=='1' }">
+		       						<td align="center">Paid</td>
+							    </c:when>					    						    					    						        
+							    <c:otherwise>
+		       						<td align="center">-??-</td>
+							    </c:otherwise>
+							</c:choose>
+							<td align="center"><a href="?" class="btn btn-info">Download</a></td>
+						</tr>						
+					</tbody>
+				</table>
+			</div>
+			</div>			
 	  			
 	  		<%-- Chat: --%>		
 	  					
-	  			<br />[[ CHAT WILL BE THERE ]]<br />
-	  			${requestChat}
+  			<br />[[ CHAT WILL BE THERE ]]<br />
+  			${requestChat}
 	  			
 	  		<%-- End of Chat: --%>		
 	  		</c:otherwise>
