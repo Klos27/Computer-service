@@ -3,7 +3,6 @@ package servlets;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.PartsDao;
+import dao.PaymentDao;
 import dao.ServiceRequestDao;
 import dao.ServicesDao;
 import models.Parts;
+import models.Payment;
 import models.ServiceRequest;
 import models.Services;
 import models.User;
@@ -110,9 +111,16 @@ public class AllServiceRequestServlet extends HttpServlet {
 					
 					//=========== PAYMENT SECTION
 					
-					//TODO return payment details
+					PaymentDao paymentDao = new PaymentDao();
+					Payment payment = null;
+					try {
+						payment = paymentDao.getPayment(user.getId(), reqId);
+					} catch (SQLException e) {
+						request.setAttribute("userNotificationPayment", "ServerError: Can't connect with database to get payment details.");
+						//e.printStackTrace();
+					}
 					request.removeAttribute("requestPayment");
-					request.setAttribute("requestPayment", partsSum + servicesSum);
+					request.setAttribute("requestPayment", payment);
 					
 					//=========== CHAT
 					
