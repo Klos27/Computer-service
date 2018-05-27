@@ -6,7 +6,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+
+import models.Message;
 import models.ServiceRequest;
 import models.User;
 import models.ServiceRequest;
@@ -190,5 +193,53 @@ public class ServiceRequestDao extends DAOManager {
         }
 
     }
+    
+    
+    public String sendMessage(int id_user, int id_service_request, String content) {
+    	
+        try {
+     	
+     	Date date = new Date(System.currentTimeMillis());
+        	PreparedStatement ps = conn.prepareStatement(
+                    "insert into service_request_messages(id_user, id_service_request, date, content) values (?, ?, ?, ?)");
+        	ps.setInt(1, id_user);
+        	ps.setInt(2, id_service_request);
+        	ps.setDate(3, date);
+        	ps.setString(4, content);
+        	ps.executeUpdate();
+        	ps.close();
+            
+            return "DONE";      
+            
+        } catch (SQLException e) {
+            System.err.println("Error in inserting the message!");
+            e.printStackTrace();
+            return null;
+        }      
+    }
+    
+    public List<Message> getMessages(int id_service_request) {
+ 	    	
+ 	   List<Message> messages = new LinkedList<Message>();
+ 	               
+        try {       	
+        	PreparedStatement ps = conn.prepareStatement(  
+        			"select srm.id, srm.id_user, srm.id_service_request, srm.date, srm.content, users.first_name, users.last_name from service_request_messages as srm inner join users ON srm.id_user = users.id where id_service_request=? ORDER BY srm.id DESC");  
+        	ps.setInt(1, id_service_request);  
+        			      
+        	ResultSet rs = ps.executeQuery();
+         while(rs.next()) {
+         	messages.add(new Message(rs.getInt("id"), rs.getInt("id_user"), rs.getString("first_name"), rs.getString("last_name"), rs.getInt("id_service_request"), rs.getDate("date"), rs.getString("content")));
+         }
+        			
+        } catch (SQLException e) {
+            System.err.println("Can't get the messages!");
+            e.printStackTrace();
+            return null;
+        }
+        
+        return messages;
+        
+    }   
 
 }
