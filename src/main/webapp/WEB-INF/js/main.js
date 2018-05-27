@@ -97,6 +97,23 @@ $(document).ready(function () {
 
     });
     
+    $("#forgot-password-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		email: $('#email').val()
+    	}
+
+        $.post( "forgot-password", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'Email has been sent!', '/welcome');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
     function openModal(title, body, redirect = 'default'){
     	$('#myModal .modal-title').html(title);
     	$('#myModal .modal-body').html(body);

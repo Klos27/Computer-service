@@ -167,5 +167,67 @@ public class UserDao extends DAOManager {
 		}
                 
     }
+   
+   public String isEmail(String email) {
+   	
+       try {
+       	
+       	PreparedStatement ps = conn.prepareStatement(  
+       			"select * from users where email = ?");  
+       	ps.setString(1, email);  
+       	
+       	ResultSet rs = ps.executeQuery();            
+        if(rs.next()) {
+           	return "DONE";
+        }
+       	ps.close();  
+       	return null;
+           
+       } catch (SQLException e) {
+           System.err.println("Error in inserting the user!");
+           e.printStackTrace();
+           return null;
+       }
+               
+   }
+   
+   public String setNewPassword(String email, String new_password) {
+   	
+       try {
+       	
+       	new_password = DigestUtils.sha256Hex(new_password);
+       	
+       	PreparedStatement ps = conn.prepareStatement(  
+       			"select * from users where email = ?");  
+       	ps.setString(1, email);  
+       	
+       	ResultSet rs = ps.executeQuery();            
+           if(rs.next()) {
+           	
+           	ps = conn.prepareStatement(  
+           			"update users set password = ? where email = ?");  
+           	ps.setString(1, new_password);  
+           	ps.setString(2, email);  
+
+           	int results = ps.executeUpdate();
+           	if(results > 0) {
+           		return "DONE";
+           	}
+           }
+       	ps.close();
+ 
+           return null;
+                       
+       } catch (SQLException e) {
+           System.err.println("Error in setting new password!");
+           e.printStackTrace();
+           return null;
+       } catch (Exception e) {
+           System.err.println("Error in hashing password!");
+			e.printStackTrace();
+           return null;
+		}
+               
+   }
     
 }
