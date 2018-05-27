@@ -116,6 +116,24 @@ $(document).ready(function () {
 
     });
     
+          
+    $("#forgot-password-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		email: $('#email').val()
+    	}
+
+        $.post( "forgot-password", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'Email has been sent!', '/welcome');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });          
+          
     function getChatMessages() { 
         if (window.location.pathname == '/user/existing-requests' && window.location.search[4]) {
         	
