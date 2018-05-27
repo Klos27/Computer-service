@@ -1,11 +1,16 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import models.Message;
 import models.User;
 
 public class UserDao extends DAOManager {

@@ -223,9 +223,31 @@
 			</div>			
 	  			
 	  		<%-- Chat: --%>		
-	  					
-  			<br />[[ CHAT WILL BE THERE ]]<br />
-  			${requestChat}
+	  				
+	  		<div class="row mt-5">
+				<div class="col-md-10 offset-md-1">	
+			  		<div class="card">
+			  			<div class="card-header text-center font-weight-bold">Chat for request id: ${ requestDetails.id }</div>
+			  			<div class="card-body chat-box" id="chat_container"></div>
+			  			<div class="card-footer">
+			  			
+			  			<form id="chat-form">
+			  				<div class="row">
+			  					<div class="col-md-10 col-8">
+			  						<input type="hidden" id="id_user" value="${ user.id }"/>
+			  						<input type="hidden" id="id_service_request" value="${ requestDetails.id }"/>
+			  						<input type="text" id="content" class="form-control" placeholder="Type a message" />
+			  					</div>
+			  					<div class="col-md-2 col-4">
+			  						<button type="submit" class="btn btn-danger btn-block">Send</button>
+			  					</div>
+			  				</div>
+			  			</form>
+
+			  			</div>
+			  		</div>		
+	  			</div>
+	  		</div>
 	  			
 	  		<%-- End of Chat: --%>		
 	  		</c:otherwise>
