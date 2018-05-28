@@ -40,4 +40,30 @@ public class ServicesDao extends DAOManager{
         }
         return result;
     }
+
+    public ArrayList<Services> getAllServices(){
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ArrayList<Services> result = new ArrayList<>();
+
+        try {
+            open();
+            stmt = conn.createStatement();
+
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `services`");
+
+            while(rs.next()) {
+                result.add(new Services(rs.getInt("id"), rs.getString("name") , rs.getString("description"), rs.getFloat("price")));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return result;
+    }
 }

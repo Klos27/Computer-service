@@ -12,6 +12,7 @@
 				<th>Description</th>
 				<th>Start date</th>
 				<th>End date</th>
+				<th>Action</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -23,6 +24,7 @@
 						<td>${ request.description }</td>
 						<td>${ request.start_date }</td>
 						<td>${ request.end_date }</td>
+						<td><a href="/service/existing-requests/edit?requestId=${request.id}" class="btn btn-info">Edit</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>

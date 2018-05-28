@@ -33,4 +33,12 @@ public class ServiceRequestService {
     public void updateRequest(String id_employee, String id_service_request) {
         serviceRequestDao.updateRequest(id_employee, id_service_request);
     }
+
+    public ServiceRequest getRequest(int id) {
+        return serviceRequestDao.getServiceRequest(id);
+    }
+
+    public void changeRequestStatus(int reqId, int status) {
+        serviceRequestDao.changeRequestStatus(reqId, status);
+    }
 }
