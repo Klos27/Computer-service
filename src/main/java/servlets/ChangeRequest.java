@@ -15,7 +15,7 @@ import models.ServiceRequest;
 import models.User;
 import services.ServiceRequestService;
 
-@WebServlet("/service/existing-requests")
+@WebServlet("/service/change-request")
 public class ChangeRequest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ServiceRequestService serviceRequestService = new ServiceRequestService();
