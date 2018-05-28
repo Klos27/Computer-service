@@ -107,6 +107,7 @@
 							<option>${service.name}</option>
 						</c:forEach>
 					</select>
+					<a href="#" class="btn btn-info">Add service</a>
 				</form>
 			</div>
 			</div>
@@ -145,8 +146,8 @@
 						<c:forEach var="part" items="${allParts}">
 							<option>${part.name}</option>
 						</c:forEach>
-
 					</select>
+					<a href="#" class="btn btn-info">Add part</a>
 				</form>
 			</div>
 			</div>
