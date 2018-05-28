@@ -40,4 +40,31 @@ public class PartsDao extends DAOManager{
         }
         return result;
     }
+
+
+    public ArrayList<Parts> getAllParts() {
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ArrayList<Parts> result = new ArrayList<>();
+
+        try {
+            open();
+            stmt = conn.createStatement();
+
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `parts`");
+
+            while(rs.next()) {
+                result.add(new Parts(rs.getInt("id"), rs.getString("name") , rs.getFloat("price")));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return result;
+    }
 }
