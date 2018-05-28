@@ -117,12 +117,8 @@
 						</c:if>
 						
 						<c:if test = "${user.getRole() == 2}">
-							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/new-requests' ? 'active' : ''}">
-								<a class="nav-link font-bold" href="/service/new-requests">NEW REQUESTS</a>
-							</li>
-							
-							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/existing-requests' ? 'active' : ''}">
-								<a class="nav-link font-bold" href="/service/existing-requests">EXISTING REQUESTS</a>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/change-request' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/existing-requests">CHANGE REQUEST</a>
 							</li>
 						</c:if>
 						<c:if test = "${user.getRole() == 1}">
