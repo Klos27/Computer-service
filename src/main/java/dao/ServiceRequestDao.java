@@ -78,6 +78,30 @@ public class ServiceRequestDao extends DAOManager {
         }
         return result;
     }
+
+    public ServiceRequest getServiceRequest(int requestId) {
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ServiceRequest serviceRq = null;
+
+        try {
+            open();
+            stmt = conn.createStatement();
+
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `service_request` where id = " + requestId);
+            if(rs.next())
+                serviceRq = new ServiceRequest(rs.getInt("id"), rs.getInt("id_client") , rs.getString("description"), rs.getInt("status"), rs.getDate("start_date"), rs.getDate("end_date"));
+
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return serviceRq ;
+    }
     
     public ServiceRequest getServiceRequest(int userId, int requestId) throws SQLException {
     	Statement stmt = null;
@@ -319,5 +343,29 @@ public class ServiceRequestDao extends DAOManager {
         }
         
         return messages;
-    }   
+    }
+
+    public void changeRequestStatus(int reqId, int status) {
+        try {
+            open();
+
+            PreparedStatement ps = conn.prepareStatement(
+                    String.format("update service_request set status = " + status + " where id = " + reqId));
+            ps.executeUpdate();
+            ps.close();
+
+        } catch (SQLException e) {
+            System.err.println("Error in inserting new service request!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
 }

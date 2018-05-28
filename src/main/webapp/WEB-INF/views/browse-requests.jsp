@@ -96,7 +96,7 @@
 		       						<td align="center">Checking</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='2'}">
-		       						<td align="center">In porgress</td>
+		       						<td align="center">In progress</td>
 							    </c:when>	
 							    <c:when test="${requestDetails.status=='3'}">
 		       						<td align="center">Waiting for payment</td>
