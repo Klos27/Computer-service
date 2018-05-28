@@ -13,9 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebFilter("/user/*")
+import models.User;
 
-public class UserFilter implements Filter {
+@WebFilter("/service/*")
+
+public class ServiceFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws ServletException, IOException {    
@@ -26,8 +28,9 @@ public class UserFilter implements Filter {
 
         boolean loggedIn = session != null && session.getAttribute("user") != null;
         boolean loginRequest = request.getRequestURI().equals(loginURI);
+        User user = (User)session.getAttribute("user");
 
-        if (loggedIn || loginRequest) {
+        if ((loggedIn && user.getRole() > 0) || loginRequest) {
             chain.doFilter(request, response);
         } else {
             response.sendRedirect(loginURI);
