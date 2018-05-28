@@ -34,7 +34,7 @@
 		       						<td align="center">New</td>
 							    </c:when>
 							    <c:when test="${request.status=='1'}">
-		       						<td align="center">Checking</td>
+		       						<td align="center">In progress</td>
 							    </c:when>
 							    <c:when test="${request.status=='2'}">
 		       						<td align="center">In porgress</td>
@@ -93,7 +93,7 @@
 		       						<td align="center">New</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='1'}">
-		       						<td align="center">Checking</td>
+		       						<td align="center">In progress</td>
 							    </c:when>
 							    <c:when test="${requestDetails.status=='2'}">
 		       						<td align="center">In progress</td>

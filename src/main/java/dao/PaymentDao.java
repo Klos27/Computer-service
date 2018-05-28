@@ -4,9 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.sql.Date;
 
+import models.Parts;
 import models.Payment;
 import models.ServiceRequest;
+import models.Services;
 
 public class PaymentDao extends DAOManager {
     public Payment getPayment(int userId, int requestId) throws SQLException {
@@ -109,6 +112,43 @@ public class PaymentDao extends DAOManager {
         } catch (SQLException e) {
             System.err.println("Error at executing query");
             //e.printStackTrace();
+        } finally {
+            if (stmt != null) {
+				stmt.close();
+            }
+            close();
+        }
+        return result ;
+	}
+
+	public int generateNewInvoice(int requestId) throws SQLException {
+		ServicesDao servicesDao = new ServicesDao();
+		PartsDao partsDao = new PartsDao();
+		
+		float sum = 0f;
+
+		ArrayList<Parts> partsList = partsDao.getAllParts(requestId);
+		ArrayList<Services> servicesList = servicesDao.getAllServices(requestId);
+		
+		for(Parts part : partsList)
+			sum += part.getPrice();
+		for(Services service : servicesList)
+			sum += service.getPrice();
+		
+		Statement stmt = null;
+        int result = 0;
+        
+        try {
+            open();
+            stmt = conn.createStatement();
+            Date date = new Date(System.currentTimeMillis());
+            String query = "INSERT INTO `payments` (`id`, `id_service_request`, `amount`, `status`, `creation_date`) VALUES (NULL, " + requestId + ", " + sum + " , '0', " + "\""+ date.toString() +"\"" + ")";
+            System.out.println(query);
+            result = stmt.executeUpdate(query);
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            //e.printStackTrace();
+            throw e;
         } finally {
             if (stmt != null) {
 				stmt.close();
