@@ -257,7 +257,23 @@ public class ServiceRequestDao extends DAOManager {
            
             PreparedStatement ps = conn.prepareStatement(
                     String.format("update service_request_employee set id_employee = " + id_employee + " where id_service_request = " + id_service_request));
+            ps.executeUpdate();
+            ps.close();
 
+        } catch (SQLException e) {
+            System.err.println("Error in inserting new service request!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
     
     public String sendMessage(int id_user, int id_service_request, String content) {
     	
@@ -303,26 +319,5 @@ public class ServiceRequestDao extends DAOManager {
         }
         
         return messages;
-        
     }   
-
-
-            ps.executeUpdate();
-            ps.close();
-
-
-        } catch (SQLException e) {
-            System.err.println("Error in inserting new service request!");
-            e.printStackTrace();
-
-        } catch (Exception e) {
-            System.err.println("Error in ServiceRequestDao!");
-            e.printStackTrace();
-
-        }
-        finally {
-            close();
-        }
-
-    }
 }
