@@ -70,7 +70,7 @@
 			
 	  		<%-- Service Operations: --%>
 
-	  		<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Service operations<i class="fas fa-angle-right ml-3"></i></h4>
+	  		<h4 class="text-center mb-4 mt-5"><i class="fas fa-angle-left mr-3"></i>Service operations<i class="fas fa-angle-right ml-3"></i></h4>
 	  		<div class="user-request-notification"> ${userNotificationServices} </div>
 	  		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -100,21 +100,28 @@
 						</tr>
 					</tbody>
 				</table>
+				
 				<form action="">
-
-					<select name="services" class="form-control">
-						<c:forEach items="${allServices}" var="service" >
-							<option>${service.name}</option>
-						</c:forEach>
-					</select>
-					<a href="#" class="btn btn-info">Add service</a>
+					<div class="row">
+						<div class="col-6">
+							<select name="services" class="form-control">
+								<c:forEach items="${allServices}" var="service" >
+									<option>${service.name}</option>
+								</c:forEach>
+							</select>						
+						</div>
+						<div class="col-6">
+							<a href="#" class="btn btn-info">Add service</a>						
+						</div>
+					</div>
 				</form>
+				
 			</div>
 			</div>
 
 	  		<%-- Service Parts: --%>
 
-	  		<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Used parts<i class="fas fa-angle-right ml-3"></i></h4>
+	  		<h4 class="text-center mb-4 mt-5"><i class="fas fa-angle-left mr-3"></i>Used parts<i class="fas fa-angle-right ml-3"></i></h4>
 	  		<div class="user-request-notification"> ${userNotificationParts} </div>
 	  		<div class="row">
 			<div class="col-md-10 offset-md-1">
@@ -141,14 +148,22 @@
 						</tr>
 					</tbody>
 				</table>
+				
 				<form action="">
-					<select name="parts" class="form-control">
-						<c:forEach var="part" items="${allParts}">
-							<option>${part.name}</option>
-						</c:forEach>
-					</select>
-					<a href="#" class="btn btn-info">Add part</a>
+					<div class="row">
+						<div class="col-6">
+							<select name="parts" class="form-control">
+								<c:forEach var="part" items="${allParts}">
+									<option>${part.name}</option>
+								</c:forEach>
+							</select>
+						</div>
+						<div class="col-6">
+							<a href="#" class="btn btn-info">Add part</a>
+						</div>
+					</div>
 				</form>
+
 			</div>
 			</div>
 
@@ -224,35 +239,37 @@
 				<%--</div>--%>
 				<%--</div>						--%>
 			<%--</c:if>--%>
-	  			<%----%>
-	  		<%--&lt;%&ndash; Chat: &ndash;%&gt;		--%>
-	  				<%----%>
-	  		<%--<div class="row mt-5">--%>
-				<%--<div class="col-md-10 offset-md-1">	--%>
-			  		<%--<div class="card">--%>
-			  			<%--<div class="card-header text-center font-weight-bold">Chat for request id: ${ requestDetails.id }</div>--%>
-			  			<%--<div class="card-body chat-box" id="chat_container"></div>--%>
-			  			<%--<div class="card-footer">--%>
-			  			<%----%>
-			  			<%--<form id="chat-form">--%>
-			  				<%--<div class="row">--%>
-			  					<%--<div class="col-md-10 col-8">--%>
-			  						<%--<input type="hidden" id="id_user" value="${ user.id }"/>--%>
-			  						<%--<input type="hidden" id="id_service_request" value="${ requestDetails.id }"/>--%>
-			  						<%--<input type="text" id="content" class="form-control" placeholder="Type a message" />--%>
-			  					<%--</div>--%>
-			  					<%--<div class="col-md-2 col-4">--%>
-			  						<%--<button type="submit" class="btn btn-danger btn-block">Send</button>--%>
-			  					<%--</div>--%>
-			  				<%--</div>--%>
-			  			<%--</form>--%>
+	  			<%----%>	
+	  		
+	  		<%-- Chat: --%>		
+	  				
+	  		<div class="row mt-5">
+				<div class="col-md-10 offset-md-1">	
+			  		<div class="card">
+			  			<div class="card-header text-center font-weight-bold">Chat for request id: ${ requestDetails.id }</div>
+			  			<div class="card-body chat-box" id="chat_container"></div>
+			  			<div class="card-footer">
+			  			
+			  			<form id="chat-form">
+			  				<div class="row">
+			  					<div class="col-md-10 col-8">
+			  						<input type="hidden" id="id_user" value="${ user.id }"/>
+			  						<input type="hidden" id="id_service_request" value="${ requestDetails.id }"/>
+			  						<input type="text" id="content" class="form-control" placeholder="Type a message" />
+			  					</div>
+			  					<div class="col-md-2 col-4">
+			  						<button type="submit" class="btn btn-danger btn-block">Send</button>
+			  					</div>
+			  				</div>
+			  			</form>
 
-			  			<%--</div>--%>
-			  		<%--</div>		--%>
-	  			<%--</div>--%>
-	  		<%--</div>--%>
-	  			<%----%>
+			  			</div>
+			  		</div>		
+	  			</div>
+	  		</div>
+	  			
 	  		<%-- End of Chat: --%>		
+	  		
 	  		</c:otherwise>
 		</c:choose>
 

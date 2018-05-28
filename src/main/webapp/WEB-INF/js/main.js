@@ -124,7 +124,7 @@ $(document).ready(function () {
     		content: $('#content').val(),
     	}
 
-        $.post( "chat", credentials)
+        $.post( "/user/chat", credentials)
   		.done(function() {
   			$('#content').val('');
   		})
@@ -153,9 +153,12 @@ $(document).ready(function () {
     });          
           
     function getChatMessages() { 
-        if (window.location.pathname == '/user/existing-requests' && window.location.search[4]) {
+        if (
+        	(window.location.pathname == '/user/existing-requests' && window.location.search[4]) ||
+        	(window.location.pathname == '/service/existing-requests/edit' && window.location.search[11])
+        	) {
         	
-        	$.get( "chat", { id_service_request: $('#id_service_request').val() })
+        	$.get( "/user/chat", { id_service_request: $('#id_service_request').val() })
       		.done(function(data) {
 
       			const messages = data;      			
