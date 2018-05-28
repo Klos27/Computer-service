@@ -30,7 +30,7 @@ public class ServiceRequestService {
         serviceRequestDao.takeRequest(id_employee, id_service_request);
     }
     
-    public void updateRequest(int id_employee, int id_service_request) {
+    public void updateRequest(String id_employee, String id_service_request) {
         serviceRequestDao.updateRequest(id_employee, id_service_request);
     }
 }

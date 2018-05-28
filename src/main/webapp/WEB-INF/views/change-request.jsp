@@ -45,22 +45,40 @@
 					<tr>
 						<td>${ request.firstname } </td>
 						<td>${ request.id }</td>
-   						<td>${ request.id_service_request }</td>
+						<c:choose>
+							<c:when test = "${request.id_service_request > 1}">
+   								<td><font style="color:#ff0000; font-weight: bold">${ request.id_service_request }</font></td>
+   							</c:when>
+   							<c:when test = "${request.id_service_request == 1}">
+   								<td><font style="color:#ffd800; font-weight: bold">${ request.id_service_request }</font></td>
+   							</c:when>
+   							<c:otherwise>
+   								<td><font style="color:#59ff00; font-weight: bold">${ request.id_service_request }</font></td>
+   							</c:otherwise>
+   						</c:choose>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<!--  Re-assign request:<br/>
-		<select>
-			<c:forEach items="${showAvail}" var="request">
-    			<option value="${request.id}">${request.firstname}</option>
-			</c:forEach>
-		</select>
-		<form action="ChangeRequest" method="post">
-			<input type="number" id="reqid" name="reqid" placeholder="type ID of request" />
-			<input type="submit" value="ok" />
-		</form>-->
+		Re-assign request:<br/>
+		<form id="change-request">
+			<select id="empid">
+				<c:forEach items="${showAvail}" var="request">
+	    			<option id="empid" name="${request.id}" value="${request.id}">${request.firstname}</option>
+				</c:forEach>
+			</select>
+			<input type="number" id="reqid" oninput="success()" name="reqid" placeholder="type ID of request" />
+			<button type="submit" id="button" disabled>Change</button>
+		</form>
 	</div>
-
 </div>
+<script type="text/javascript">
+function success() {
+	 if(document.getElementById("reqid").value==="") { 
+           document.getElementById('button').disabled = true; 
+       } else { 
+           document.getElementById('button').disabled = false;
+       }
+   }
+</script>
 <%@ include file="../commons/footer.jspf" %>	
