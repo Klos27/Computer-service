@@ -108,6 +108,7 @@ public class EditExistingRequestServlet extends HttpServlet {
 
 	private boolean checkActionParameter(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		ServiceRequestDao srd = new ServiceRequestDao();
+		PaymentDao paymentDao = new PaymentDao();
 		String actionParam = request.getParameter("action");
 		String reqIdStr = request.getParameter("requestId");
 
@@ -118,6 +119,11 @@ public class EditExistingRequestServlet extends HttpServlet {
 			if (actionParam.equals("end")) {
 				int status = 3;
 				srd.changeRequestStatus(reqId, status);
+				try {
+					paymentDao.generateNewInvoice(reqId);
+				} catch (SQLException e) {
+					//e.printStackTrace();
+				}
 //				doGet(request, response);
 				request.setCharacterEncoding("UTF-8");
 				request.getRequestDispatcher("/service/existing-requests").forward(request, response);
