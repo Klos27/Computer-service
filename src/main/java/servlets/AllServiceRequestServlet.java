@@ -124,10 +124,7 @@ public class AllServiceRequestServlet extends HttpServlet {
 					request.setAttribute("requestPayment", payment);
 					
 					//=========== CHAT
-					
-					//TODO Chat
-					request.removeAttribute("requestChat");
-					request.setAttribute("requestChat", "requestChat");
+					// Done in JavaScript
 				}
 			}			
 		}
