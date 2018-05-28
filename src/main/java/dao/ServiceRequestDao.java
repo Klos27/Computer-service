@@ -163,13 +163,13 @@ public class ServiceRequestDao extends DAOManager {
         }
         return requests;
     }
-
+    
     public List<ServiceRequest> showExistingRequestsWithWorkers() {
         List<ServiceRequest> requests = new ArrayList<>();
         try {
             open();
             PreparedStatement ps = conn.prepareStatement(
-                    "select * from service_request sr JOIN service_request_employee sre ON sr.id = sre.id_service_request where status = 1;");
+                    "select * from service_request sr JOIN service_request_employee sre ON sr.id = sre.id_service_request where status = 1");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

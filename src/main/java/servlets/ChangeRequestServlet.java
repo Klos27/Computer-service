@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import models.Employee;
 import models.ServiceRequest;
 import models.User;
+import services.HelperService;
 import services.ServiceRequestService;
 
 @WebServlet("/service/change-request")

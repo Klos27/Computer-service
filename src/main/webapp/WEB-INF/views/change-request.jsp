@@ -53,7 +53,7 @@
    								<td><font style="color:#ffd800; font-weight: bold">${ request.id_service_request }</font></td>
    							</c:when>
    							<c:otherwise>
-   								<td><font style="color:#59ff00; font-weight: bold">${ request.id_service_request }</td>
+   								<td><font style="color:#59ff00; font-weight: bold">${ request.id_service_request }</font></td>
    							</c:otherwise>
    						</c:choose>
 					</tr>
@@ -67,9 +67,18 @@
 	    			<option id="empid" name="${request.id}" value="${request.id}">${request.firstname}</option>
 				</c:forEach>
 			</select>
-			<input type="number" id="reqid" name="reqid" placeholder="type ID of request" />
-			<button type="submit">Change</button>
+			<input type="number" id="reqid" oninput="success()" name="reqid" placeholder="type ID of request" />
+			<button type="submit" id="button" disabled>Change</button>
 		</form>
 	</div>
 </div>
+<script type="text/javascript">
+function success() {
+	 if(document.getElementById("reqid").value==="") { 
+           document.getElementById('button').disabled = true; 
+       } else { 
+           document.getElementById('button').disabled = false;
+       }
+   }
+</script>
 <%@ include file="../commons/footer.jspf" %>	
