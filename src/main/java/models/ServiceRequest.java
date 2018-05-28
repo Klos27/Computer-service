@@ -9,6 +9,8 @@ public class ServiceRequest {
 	private int status;
 	private Date start_date;
 	private Date end_date;
+	private int id_employee;
+	
 	public ServiceRequest(int id, int id_client, String description, int status, Date start_date, Date end_date) {
 		super();
 		this.id = id;
@@ -17,6 +19,17 @@ public class ServiceRequest {
 		this.status = status;
 		this.start_date = start_date;
 		this.end_date = end_date;
+	}
+	
+	public ServiceRequest(int id, int id_client, String description, int status, Date start_date, Date end_date, int id_employee) {
+		super();
+		this.id = id;
+		this.id_client = id_client;
+		this.description = description;
+		this.status = status;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.id_employee = id_employee;
 	}
 
 	public int getId() {
@@ -65,6 +78,14 @@ public class ServiceRequest {
 
 	public void setEnd_date(Date end_date) {
 		this.end_date = end_date;
+	}
+
+	public int getId_employee() {
+		return id_employee;
+	}
+
+	public void setId_employee(int id_employee) {
+		this.id_employee = id_employee;
 	}
 
 	@Override

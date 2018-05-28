@@ -48,3 +48,9 @@
 	color: blue;
 	font-weight: bold;
 }
+
+.chat-box {
+	height: 250px;
+	overflow-y: auto;
+	overflow-x: none;
+}

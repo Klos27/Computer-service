@@ -30,5 +30,13 @@ public class Parts {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
+
+	@Override
+	public String toString() {
+//		return "Parts [id=" + id + ", name=" + name + ", price=" + price + "]";
+		return id + " | " + name + " | " + price + "\n";
+		
+		
+		
+	}
 }

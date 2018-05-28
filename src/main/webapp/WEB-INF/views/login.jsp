@@ -18,6 +18,8 @@
 		<button type="submit" class="btn btn-danger btn-block">Log in</button>
 		
 		</form>
+		<div class="text-center mt-3"><a href="/auth/forgot-password">I have forgotten password.</a></div>
+		
 	</div>
 </div>
 
