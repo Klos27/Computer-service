@@ -36,3 +36,21 @@
 .font-bold {
 	font-weight: 500 !important;
 }
+.user-request-notification {
+	color: red;
+	width: 100%;
+	margin: auto;
+	padding: 5px;
+	text-align: center;
+	font-weight: bold;
+}
+.price-higlight{
+	color: blue;
+	font-weight: bold;
+}
+
+.chat-box {
+	height: 250px;
+	overflow-y: auto;
+	overflow-x: none;
+}
