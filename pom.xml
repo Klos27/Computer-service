@@ -61,6 +61,13 @@
     		<version>1.4</version>
     		<scope>test</scope>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.itextpdf/itextpdf -->
+		<!-- AGPL license -->
+		<dependency>
+		    <groupId>com.itextpdf</groupId>
+		    <artifactId>itextpdf</artifactId>
+		    <version>5.0.6</version>
+		</dependency>
 	</dependencies>
 
 	<build>

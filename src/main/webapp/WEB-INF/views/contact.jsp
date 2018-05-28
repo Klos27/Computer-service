@@ -5,9 +5,11 @@
 <div class="row">
 	<div class="col-md-6 offset-md-3">
 		<div id="contact_details" class="form-group">
-			Computer service <br />
+			PPPM Computer service <br />
 			Warszawska 24 <br />
 			31-155 Cracow <br />
+			Phone: +48 111-222-333 <br />
+			Email: contact@pppmcomputer.com <br />
 		</div>
 
 		<div id="google_map">
