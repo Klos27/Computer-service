@@ -16,7 +16,7 @@ import models.User;
 import services.ServiceRequestService;
 
 @WebServlet("/service/change-request")
-public class ChangeRequest extends HttpServlet {
+public class ChangeRequestServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ServiceRequestService serviceRequestService = new ServiceRequestService();
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,10 +35,11 @@ public class ChangeRequest extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String id_worker = request.getParameter("${request.id}");
+		String id_worker = request.getParameter("empid");
 		String id_request = request.getParameter("reqid");
-		int id_worker_int = Integer.parseInt(id_worker);
-		int id_request_int = Integer.parseInt(id_request);
-		serviceRequestService.updateRequest(id_worker_int, id_request_int);
+//		System.out.println(id_worker);
+//		System.out.println(id_request);
+		serviceRequestService.updateRequest(id_worker, id_request);
+		response.sendRedirect("/service/change-request");
 	}
 }

@@ -198,7 +198,7 @@ public class ServiceRequestDao extends DAOManager {
         try {
             open();
             PreparedStatement ps = conn.prepareStatement(
-                    "select users.first_name, users.id, count(users.id) as counted from users join service_request_employee on users.id = service_request_employee.id_employee group by users.id order by counted desc;");
+                    "SELECT users.first_name, users.id, 0 as \"counted\" FROM users where users.id not in (select service_request_employee.id_employee from service_request_employee) and users.role = 3 union select users.first_name, users.id, count(users.id) as counted from users join service_request_employee on users.id = service_request_employee.id_employee group by users.id order by counted desc");
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -250,8 +250,7 @@ public class ServiceRequestDao extends DAOManager {
 
     }
     
-
-    public void updateRequest(int id_employee, int id_service_request) {
+    public void updateRequest(String id_employee, String id_service_request) {
         try {
             open();
            

@@ -40,6 +40,24 @@ $(document).ready(function () {
 
     });
     
+    $("#change-request").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		empid: $('#empid').val(),
+    		reqid: $('#reqid').val(),
+    	}
+
+        $.post( "change-request", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully changed the request.', '/service/change-request');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
     $("#add-request-form").submit(function (e) {
         e.preventDefault();
 
