@@ -100,6 +100,14 @@
 						</tr>
 					</tbody>
 				</table>
+				<form action="">
+
+					<select name="services" class="form-control">
+						<c:forEach items="${allServices}" var="service" >
+							<option>${service.name}</option>
+						</c:forEach>
+					</select>
+				</form>
 			</div>
 			</div>
 
@@ -132,6 +140,14 @@
 						</tr>
 					</tbody>
 				</table>
+				<form action="">
+					<select name="parts" class="form-control">
+						<c:forEach var="part" items="${allParts}">
+							<option>${part.name}</option>
+						</c:forEach>
+
+					</select>
+				</form>
 			</div>
 			</div>
 

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,6 +24,8 @@ import models.Payment;
 import models.ServiceRequest;
 import models.Services;
 import models.User;
+import services.PartsService;
+import services.ServicesService;
 
 @WebServlet("/service/existing-requests/edit")
 public class EditExistingRequestServlet extends HttpServlet {
@@ -30,7 +33,7 @@ public class EditExistingRequestServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServiceRequestDao srd = new ServiceRequestDao();
 		HttpSession session = request.getSession(true);
-
+		ServicesService ss =  new ServicesService();
 		User user = (User) session.getAttribute("user");
 
 		boolean redirected = false;
@@ -52,14 +55,11 @@ public class EditExistingRequestServlet extends HttpServlet {
 
 
 					float servicesSum = 0f;
-					ServicesDao servicesDao =  new ServicesDao();
+
 					ArrayList<Services> servicesList = null;
-					try {
-						servicesList = servicesDao.getAllServices(reqId);
-					} catch (SQLException e) {
-						request.setAttribute("userNotificationServices", "ServerError: Can't connect with database to get services list.");
-						//e.printStackTrace();
-					}
+
+					servicesList = ss.getAllServices(reqId);
+
 					for(Services service : servicesList) {
 						servicesSum += service.getPrice();
 					}
@@ -69,32 +69,23 @@ public class EditExistingRequestServlet extends HttpServlet {
 					//=========== SERVICE PARTS
 
 					float partsSum = 0f;
-					PartsDao partsDao = new PartsDao();
-					ArrayList<Parts> partsList = null;
-					try {
-						partsList = partsDao.getAllParts(reqId);
-					} catch (SQLException e) {
-						request.setAttribute("userNotificationParts", "ServerError: Can't connect with database to get parts list.");
-						//e.printStackTrace();
-					}
+					PartsService partsService = new PartsService();
+					List<Parts> partsList = null;
+
+					partsList = partsService.getAllParts(reqId);
+
 					for(Parts parts : partsList) {
 						partsSum += parts.getPrice();
 					}
 					request.setAttribute("requestPartsList", partsList);
 					request.setAttribute("requestPartsSum", partsSum);
 //
-//					//=========== PAYMENT SECTION
-//
-//					PaymentDao paymentDao = new PaymentDao();
-//					Payment payment = null;
-//					try {
-//						payment = paymentDao.getPayment(user.getId(), reqId);
-//					} catch (SQLException e) {
-//						request.setAttribute("userNotificationPayment", "ServerError: Can't connect with database to get payment details.");
-//						//e.printStackTrace();
-//					}
-//					request.removeAttribute("requestPayment");
-//					request.setAttribute("requestPayment", payment);
+					List<Parts> allParts = partsService.getAllParts();
+					request.setAttribute("allParts", allParts);
+
+					List<Services> allServices = ss.getAllServices();
+					request.setAttribute("allServices", allServices);
+
 //
 //					//=========== CHAT
 //
