@@ -45,15 +45,12 @@
 					<tr>
 						<td>${ request.firstname } </td>
 						<td>${ request.id }</td>
-						<c:choose>
-   							<c:when test="${request.id_employee == 0}"><td style="background-color:red">${ request.id_employee }</td></c:when>
-   							<c:otherwise><td>${ request.id_employee }</td></c:otherwise>
-							</c:choose>	
+   						<td>${ request.id_service_request }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		Re-assign request:<br/>
+		<!--  Re-assign request:<br/>
 		<select>
 			<c:forEach items="${showAvail}" var="request">
     			<option value="${request.id}">${request.firstname}</option>
@@ -62,7 +59,7 @@
 		<form action="ChangeRequest" method="post">
 			<input type="number" id="reqid" name="reqid" placeholder="type ID of request" />
 			<input type="submit" value="ok" />
-		</form>
+		</form>-->
 	</div>
 
 </div>
