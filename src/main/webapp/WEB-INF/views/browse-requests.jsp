@@ -5,7 +5,7 @@
 
 <c:if test="${not empty userNotification}">
 <%-- Notify user about errrors --%>
-	${userNotification}
+<div class="user-request-notification"> ${userNotification} </div>
 </c:if>
 
 <c:choose>
@@ -111,8 +111,15 @@
 							<td align="center">${ requestDetails.start_date }</td>
 							<td align="center">${ requestDetails.end_date }</td>
 							<td align="justify">${ requestDetails.description }</td>
-							<td align="center"><a href="?" class="btn btn-info">Download</a></td>
-						</tr>						
+							<c:choose>
+							    <c:when test="${not empty requestPayment}">
+		       						<td align="center"><a target="_blank" href="/user/download-invoice?request=${ requestDetails.id }&invoice=${ requestPayment.id }" class="btn btn-info">Download</a></td>
+							    </c:when>			    						    					    						        
+							    <c:otherwise>
+		       						<td align="center"></td>
+							    </c:otherwise>
+							</c:choose>
+							</tr>						
 					</tbody>
 				</table>
 			</div>
@@ -197,6 +204,7 @@
 							<th>Invoice ID</th>
 							<th>Amount</th>
 							<th>Status</th>
+							<th>Creation date</th>
 							<th>Invoice</th>
 						</tr>
 					</thead>
@@ -212,15 +220,50 @@
 		       						<td align="center">Paid</td>
 							    </c:when>					    						    					    						        
 							    <c:otherwise>
-		       						<td align="center">-??-</td>
+		       						<td align="center"></td>
 							    </c:otherwise>
 							</c:choose>
-							<td align="center"><a href="?" class="btn btn-info">Download</a></td>
-						</tr>						
+							<td align="center">${ requestPayment.creation_date }</td>
+							<c:choose>
+							    <c:when test="${not empty requestPayment}">
+		       						<td align="center"><a target="_blank" href="/user/download-invoice?request=${ requestDetails.id }&invoice=${ requestPayment.id }" class="btn btn-info">Download</a></td>
+							    </c:when>			    						    					    						        
+							    <c:otherwise>
+		       						<td align="center"></td>
+							    </c:otherwise>
+							</c:choose>
+							</tr>						
 					</tbody>
 				</table>
 			</div>
 			</div>			
+	  		<c:if test="${not empty requestPayment}">
+				<%-- Print account info --%>
+				
+				<div class="row">
+				<div class="col-md-4 offset-md-4">
+					<table class="table">
+						<thead align="center" valign="middle">
+						<tr>
+							<th>You can pay to our account:</th>
+						</tr>
+						</thead>
+						<tbody>			
+							<tr><td>ISI Bank 11 2222 3333 4444 5555 6666 7777</td></tr>
+							<tr>
+								<td>
+									PPPM Computer Service<br />
+									ul. Warszawska 24<br />
+									31-155 Kraków
+								</td>
+							</tr>
+							<tr><td>Amount: ${ requestPayment.amount } zł</td></tr>
+							<tr><td>Title: Service request ${ requestDetails.id } invoice ${ requestPayment.id }</td></tr>
+						</tbody>
+					</table>
+				</div>
+				</div>						
+			</c:if>
 	  			
 	  		<%-- Chat: --%>		
 	  				

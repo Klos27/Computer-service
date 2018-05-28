@@ -45,5 +45,9 @@ public class Services {
 	public void setPrice(float price) {
 		this.price = price;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Services [id=" + id + ", name=" + name + ", description=" + description + ", price=" + price + "]";
+	}
 }
