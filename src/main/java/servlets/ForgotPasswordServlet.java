@@ -40,7 +40,7 @@ public class ForgotPasswordServlet extends HttpServlet {
 				
 				Mail sendEmail = new Mail();
 				String newPassword = UUID.randomUUID().toString();
-				sendEmail.sendEmail(email, newPassword);
+				sendEmail.sendEmail(email, "Forgot password", "Your new password: " + newPassword);
 				db.setNewPassword(email, newPassword);
 				
 			} else {

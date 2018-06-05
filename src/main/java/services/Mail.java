@@ -39,20 +39,20 @@ public class Mail {
         //sessionobj.setDebug(true);
     }
     
-	public String sendEmail(String to, String token) {
+	public String sendEmail(String to, String title, String description) {
 		
 	      try {
 		   	   //Create MimeMessage object & set values
 		   	   Message messageobj = new MimeMessage(sessionobj);
 		   	   messageobj.setFrom(new InternetAddress(sendrmailid));
 		   	   messageobj.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));
-		   	   messageobj.setSubject("Computer Service - forgot password");
-		   	   messageobj.setText("Your new password: "+token);
+		   	   messageobj.setSubject("Computer Service - " + title);
+		   	   messageobj.setText(description);
 		   	  //Now send the message
 		   	   Transport.send(messageobj);
-		   	   return "E-mail zosta³ wys³any!";
+		   	   return "E-mail was already sent!";
 	      } catch (MessagingException exp) {
-	    	  return "Nie uda³o siê wys³aæ e-maila";
+	    	  return "Couldnt send the email.";
 	    	  //throw new RuntimeException(exp);
 	      }	
 	      
