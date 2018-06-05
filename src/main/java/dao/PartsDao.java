@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -9,6 +10,7 @@ import models.Parts;
 
 public class PartsDao extends DAOManager{
 
+	// get all parts for specific requestId
 	public ArrayList<Parts> getAllParts(int requestId) throws SQLException {
         Statement stmt = null;
         ResultSet rs = null;
@@ -41,7 +43,7 @@ public class PartsDao extends DAOManager{
         return result;
     }
 
-
+	// get all parts list in database
     public ArrayList<Parts> getAllParts() {
         Statement stmt = null;
         ResultSet rs = null;
@@ -67,4 +69,81 @@ public class PartsDao extends DAOManager{
         }
         return result;
     }
+    
+    // get part info
+	public Parts getPart(int partId) throws SQLException {
+        Statement stmt = null;
+        ResultSet rs = null;
+        
+        Parts result = null;
+        
+        try {
+            open();
+            stmt = conn.createStatement();
+            
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `parts` where id = " + partId);
+
+            while(rs.next()) {
+                result = new Parts(rs.getInt("id"), rs.getString("name") , rs.getFloat("price"));
+            }
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stmt != null) {
+                stmt.close();
+            }
+            close();
+        }
+        return result;
+    }
+    
+    public String addPart(String partName, float partPrice) throws SQLException {
+        try {
+        	open();
+            PreparedStatement ps = conn.prepareStatement(
+                    "insert into parts(id, name, price) values (NULL, ?, ?)");
+        	ps.setString(1, partName);
+        	ps.setString(2, String.valueOf(partPrice));
+           	ps.executeUpdate();
+        	ps.close();
+            return "DONE";      
+            
+        } catch (SQLException e) {
+            System.err.println("Error while adding new part!");
+            throw e;
+        } catch (Exception e) {
+            System.err.println("Error in PartsDao!");
+            throw e;
+		}
+        finally {
+        	close();
+        }
+    }
+    public String updatePart(int partId, String partName, float partPrice) throws SQLException {
+        try {
+        	open();
+            PreparedStatement ps = conn.prepareStatement(
+                    "UPDATE parts SET name = '" + partName + "', price = '" + partPrice + "' where id = " + partId);
+           	ps.executeUpdate();
+        	ps.close();
+            return "DONE";      
+            
+        } catch (SQLException e) {
+            System.err.println("Error while adding new part!");
+            throw e;
+        } catch (Exception e) {
+            System.err.println("Error in PartsDao!");
+            throw e;
+		}
+        finally {
+        	close();
+        }
+    }
+    
+    
 }
