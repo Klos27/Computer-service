@@ -10,12 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.AdminDao;
+import services.AdminService;
 import services.HelperService;
 import services.Mail;
  
 @WebServlet(urlPatterns = "/admin/add-worker")
 public class AddWorkerServlet extends HttpServlet {
+	
+	AdminService adminService = new AdminService();
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -25,7 +27,6 @@ public class AddWorkerServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		AdminDao db;
 		PrintWriter out = response.getWriter();
 
 		String first_name = request.getParameter("first_name");
@@ -34,22 +35,17 @@ public class AddWorkerServlet extends HttpServlet {
 		
 	    if(HelperService.isEmpty(first_name) && HelperService.isEmpty(last_name) &&  HelperService.isEmpty(email)) {
 			
-				db = new AdminDao();
 				Mail sendEmail = new Mail();
-				db.open();
 				
 				String password = UUID.randomUUID().toString();
 
-				if(db.addWorker(first_name, last_name, password, email, 3) == "DONE") {
+				if(adminService.addWorker(first_name, last_name, password, email, 3).equals("DONE")) {
 					out.print("DONE");	
 					sendEmail.sendEmail(email, "Worker password", "Your worker password: " + password);
 				} else {
 					response.setStatus(403);
 					out.print("Email is in use!");
-				}
-				
-				db.close();
-				
+				}				
 				
 		} else {
 			response.setStatus(403);

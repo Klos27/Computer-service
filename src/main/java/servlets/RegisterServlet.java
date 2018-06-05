@@ -39,7 +39,7 @@ public class RegisterServlet extends HttpServlet {
 				db = new UserDao();
 				db.open();
 
-				if(db.register(first_name, last_name, password, email, 0) == "DONE") {
+				if(db.register(first_name, last_name, password, email, 0).equals("DONE")) {
 					out.print("DONE");		
 				} else {
 					response.setStatus(403);

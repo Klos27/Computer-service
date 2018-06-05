@@ -170,6 +170,19 @@ $(document).ready(function () {
   		})
 
     });
+    
+    $(".select-role").on('change', function(e) {   
+    	
+    	const value = this.value.split('-');
+
+        $.post( "list", {id: value[1], role: value[0]})
+  		.done(function() {
+  			openModal('Congratulations!', 'You changed the role!');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+    })
           
     function getChatMessages() { 
         if (

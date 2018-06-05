@@ -4,13 +4,17 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
 import models.Message;
+import models.ServiceRequest;
+import models.Services;
 import models.User;
 
 public class AdminDao extends DAOManager {
@@ -22,7 +26,7 @@ public class AdminDao extends DAOManager {
     public String addWorker(String first_name, String last_name, String password, String email, int role) {
     	    	
         try {
-        	
+            open();
         	PreparedStatement ps = conn.prepareStatement(  
         			"select * from users where email=?");  
         	ps.setString(1, email);  
@@ -55,8 +59,69 @@ public class AdminDao extends DAOManager {
             System.err.println("Error in hashing password!");
 			e.printStackTrace();
             return null;
-		}
+		} finally {
+            close();
+        }
                 
     }
     
+	public List<User> showAllUsers(String filter) {
+		
+		
+        List<User> result = new ArrayList<>();
+        
+        try {
+            open();
+            PreparedStatement ps;
+            
+            if(filter != null && (filter.equals("0")|| filter.equals("3") || filter.equals("2"))) {
+            	ps = conn.prepareStatement(
+	            		"SELECT * FROM users where role = ?");
+	            ps.setString(1, filter);
+            } else {
+	            ps = conn.prepareStatement(
+	            		"SELECT * FROM users where role != 1"); 	
+            }
+            
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                result.add(new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getInt("role"), rs.getString("address"), rs.getString("phone")));
+            }
+        } catch (SQLException e) {
+            System.err.println("Couldnt get users!");
+            e.printStackTrace();
+            return null;
+        } finally {
+            close();
+        }
+        return result;
+	}
+    
+	public String setRole(String id, String role ) {
+	    	
+		try {
+			open();
+			PreparedStatement ps = conn.prepareStatement(  
+				"update users set role = ? where id = ?");  
+	        	
+			ps.setString(1, role);  
+			ps.setString(2, id);  
+
+			int results = ps.executeUpdate();
+			if(results > 0) {
+				return "DONE";
+			}
+	        
+			ps.close();
+	  
+			return null;
+	                        
+		} catch (SQLException e) {
+			System.err.println("Error in changing role!");
+			e.printStackTrace();
+			return null;
+		} finally {
+			close();
+		}
+	}  
 }
