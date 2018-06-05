@@ -21,7 +21,8 @@
 			</div>
 		</div>
 		<center>
-        	<h1>Ooops, the page you requested was not found.</h1>
+        	<h1>Ooops, the page you requested was not found.</h1><br />
+        	<a href="/welcome" class="btn btn-info">Home</a>
    		</center>
 	</header>
 </body>

@@ -27,9 +27,8 @@ public class ChatServlet extends HttpServlet {
     	response.setCharacterEncoding("utf-8");
     	PrintWriter out = response.getWriter();
 		
-		int id_service_request = Integer.parseInt(request.getParameter("id_service_request"));
-
 		if(HelperService.isEmpty(request.getParameter("id_service_request"))) {
+			int id_service_request = Integer.parseInt(request.getParameter("id_service_request"));
 			
 			db = new ServiceRequestDao();
 		    Gson g = new Gson();
