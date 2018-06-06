@@ -150,7 +150,39 @@ $(document).ready(function () {
   			showError(data.responseText);
   		})
 
-    });          
+    });     
+    
+    $("#add-worker-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		first_name: $('#first_name').val(),
+    		last_name: $('#last_name').val(),
+    		email: $('#email').val()
+    	}
+
+        $.post( "add-worker", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully added worker.', '/admin/add-worker');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
+    $(".select-role").on('change', function(e) {   
+    	
+    	const value = this.value.split('-');
+
+        $.post( "list", {id: value[1], role: value[0]})
+  		.done(function() {
+  			openModal('Congratulations!', 'You changed the role!');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+    })
           
     function getChatMessages() { 
         if (
