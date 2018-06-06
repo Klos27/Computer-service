@@ -70,7 +70,6 @@ public class PartsDao extends DAOManager{
         return result;
     }
     
- // get all parts list in database
     public ArrayList<Parts> getParts(int partId, String partName, float priceFrom, float priceTo) {
         Statement stmt = null;
         ResultSet rs = null;
@@ -92,9 +91,9 @@ public class PartsDao extends DAOManager{
         if(priceFrom > 0. && priceTo > 0.)
         	query = query + " AND price BETWEEN " + priceFrom + " AND " + priceTo;
         else if(priceFrom > 0.)
-        	query = query + " AND price > " + priceFrom;
+        	query = query + " AND price >= " + priceFrom;
         else if(priceTo > 0.)
-        	query = query + " AND price < " + priceTo;
+        	query = query + " AND price <= " + priceTo;
         
         try {
             open();
@@ -115,7 +114,6 @@ public class PartsDao extends DAOManager{
         }
         return result;
     }
-    
     
     // get part info
 	public Parts getPart(int partId) throws SQLException {
@@ -174,6 +172,7 @@ public class PartsDao extends DAOManager{
     public String updatePart(int partId, String partName, float partPrice) throws SQLException {
         try {
         	open();
+        	partName = partName.replace("'", "\\'");
             PreparedStatement ps = conn.prepareStatement(
                     "UPDATE parts SET name = '" + partName + "', price = '" + partPrice + "' where id = " + partId);
            	ps.executeUpdate();
@@ -181,7 +180,7 @@ public class PartsDao extends DAOManager{
             return "DONE";      
             
         } catch (SQLException e) {
-            System.err.println("Error while adding new part!");
+            System.err.println("Error while updating part info!");
             throw e;
         } catch (Exception e) {
             System.err.println("Error in PartsDao!");

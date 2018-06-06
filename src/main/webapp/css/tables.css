@@ -1,33 +1,40 @@
-table#list {
+/* list - parts , list20- services */
+
+table#list, table#list20 {
         width: 100%;
     }
 
-thead#list, tbody#list, tr#list, td#list, th#list { display: block; }
+thead#list, tbody#list, tr#list, td#list, th#list, thead#list20, tbody#list20, tr#list20, td#list20, th#list20 { display: block; }
 
-tr#list:after {
+tr#list:after, tr#list20:after {
     content: ' ';
     display: block;
     visibility: hidden;
     clear: both;
 }
 
-thead#list th#list {
-    height: 150px;
+thead#list th#list, thead#list20 th#list20 {
+    height: 170px;
 
     /*text-align: left;*/
 }
 
-tbody#list {
+tbody#list, tbody#list20 {
     height: 350px;
     overflow-y: auto;
 }
 
-thead#list {
+thead#list, thead#list20 {
     /* fallback */
 }
 
 
 tbody#list td#list, thead#list th#list {
     width: 25%;
+    float: left;
+}
+
+tbody#list20 td#list20, thead#list20 th#list20 {
+    width: 20%;
     float: left;
 }

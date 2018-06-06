@@ -51,8 +51,8 @@ $(function(){
 		</thead>
 		<tbody>
 			<tr>
-				<td align="center"><input type="text" name="part_name" value="${name_value}"/></td>
-				<td align="center"><input type="text" name="part_price" value="${price_value}"/></td>
+				<td align="center"><input type="text" name="part_name" value="${name_value}" class="form-control"/></td>
+				<td align="center"><input type="text" name="part_price" value="${price_value}" class="form-control"/></td>
 				<td align="center"><input type="submit" class="btn btn-info" value="Add part"/></td>
 			</tr>
 		</tbody>
@@ -82,9 +82,9 @@ $(function(){
 		</thead>
 		<tbody>
 			<tr>
-				<td align="center"><input type="text" name="part_id" value="${edit_id_value}"/></td>
-				<td align="center"><input type="text" name="part_name" value="${edit_name_value}"/></td>
-				<td align="center"><input type="text" name="part_price" value="${edit_price_value}"/></td>
+				<td align="center"><input type="text" name="part_id" value="${edit_id_value}" class="form-control"/></td>
+				<td align="center"><input type="text" name="part_name" value="${edit_name_value}" class="form-control"/></td>
+				<td align="center"><input type="text" name="part_price" value="${edit_price_value}" class="form-control"/></td>
 				<td align="center"><input type="submit" class="btn btn-info" value="Update"/></td>
 			</tr>
 		</tbody>
@@ -100,8 +100,8 @@ $(function(){
 		<thead id="list" align="center" valign="middle">
 		<tr id="list">
 		<form method="get">
-			<th id="list">Part ID<br /><input type="number" name="f_part_id" value="${f_id_value}"/></th>
-			<th id="list">Name<br /><input type="text" name="f_part_name" value="${f_name_value}"/></th>
+			<th id="list">Part ID<br /><input type="number" name="f_part_id" value="${f_id_value}" class="form-control"/></th>
+			<th id="list">Name<br /><input type="text" name="f_part_name" value="${f_name_value}" class="form-control"/></th>
 			<th id="list">
 				Price<br />
 				<table style="border:0px">
@@ -110,7 +110,7 @@ $(function(){
 							From:					
 						</td>
 						<td>
-							<input type="text" name="f_part_price_from" value="${f_price_value_from}" style="width: 120px;"/>
+							<input type="text" name="f_part_price_from" value="${f_price_value_from}" style="width: 120px;" class="form-control"/>
 						</td>
 					</tr>
 					<tr>
@@ -118,7 +118,7 @@ $(function(){
 							To:
 						</td>
 						<td>
-							<input style="width: 120px;" type="text" name="f_part_price_to" value="${f_price_value_to}"/>
+							<input style="width: 120px;" type="text" name="f_part_price_to" value="${f_price_value_to}" class="form-control"/>
 						</td>
 					</tr>
 				</table>
