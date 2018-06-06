@@ -131,6 +131,12 @@
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/confirm-payment' ? 'active' : ''}">
 								<a class="nav-link font-bold" href="/service/confirm-payment">CONFIRM PAYMENT</a>
 							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/admin/add-worker' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/admin/add-worker">ADD WORKER</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/admin/list' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/admin/list">USERS LIST</a>
+							</li>
 						</c:if>
 						
 						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact') ? 'active' : '' }">
