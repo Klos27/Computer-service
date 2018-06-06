@@ -1,12 +1,8 @@
 package services;
 
 import dao.AdminDao;
-import dao.ServiceRequestDao;
-import models.Employee;
-import models.ServiceRequest;
 import models.User;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class AdminService {

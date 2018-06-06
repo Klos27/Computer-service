@@ -1,5 +1,9 @@
 package services;
 import java.util.Properties;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
+
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
@@ -11,16 +15,13 @@ import javax.mail.internet.MimeMessage;
 public class Mail {
 	
     String sendrmailid = "docelu.smtp@gmail.com";	  
-   //Mention user name and password as per your configuration
     final String uname = "docelu.smtp@gmail.com";
     final String pwd = "Javadocelu1";
-    //We are using relay.jangosmtp.net for sending emails
     String smtphost = "smtp.gmail.com";
     Session sessionobj;
     
     public Mail() {
     	
-    	//Set properties and their values
         Properties propvls = new Properties();
         propvls.put("mail.transport.protocol", "smtps");
         propvls.put("mail.smtp.host", smtphost);
@@ -28,33 +29,33 @@ public class Mail {
         propvls.put("mail.smtp.auth", "true");
         propvls.put("mail.smtp.starttls.enable", "true");
 
-        
-        //Create a Session object & authenticate uid and pwd
         sessionobj = Session.getInstance(propvls,
-           new javax.mail.Authenticator() {
-              protected PasswordAuthentication getPasswordAuthentication() {
-                 return new PasswordAuthentication(uname, pwd);
-              }
+        new javax.mail.Authenticator() {
+        	protected PasswordAuthentication getPasswordAuthentication() {
+        		return new PasswordAuthentication(uname, pwd);
+        	}
         });
-        //sessionobj.setDebug(true);
     }
     
-	public String sendEmail(String to, String title, String description) {
-		
-	      try {
-		   	   //Create MimeMessage object & set values
-		   	   Message messageobj = new MimeMessage(sessionobj);
-		   	   messageobj.setFrom(new InternetAddress(sendrmailid));
-		   	   messageobj.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));
-		   	   messageobj.setSubject("Computer Service - " + title);
-		   	   messageobj.setText(description);
-		   	  //Now send the message
-		   	   Transport.send(messageobj);
-		   	   return "E-mail was already sent!";
-	      } catch (MessagingException exp) {
-	    	  return "Couldnt send the email.";
-	    	  //throw new RuntimeException(exp);
-	      }	
+	public void sendEmail(final String to, final String title, final String description) {
+        
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(10, 10, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+            	try {
+   	   		   	   	Message messageobj = new MimeMessage(sessionobj);
+   	   		   	   	messageobj.setFrom(new InternetAddress(sendrmailid));
+   	   		   	   	messageobj.setRecipients(Message.RecipientType.TO,InternetAddress.parse(to));
+   	   		   	   	messageobj.setSubject("Computer Service - " + title);
+   	   		   	   	messageobj.setText(description);
+   	   		   	   	Transport.send(messageobj);
+   	   	      	} catch (MessagingException exp) {
+   	   	      		throw new RuntimeException("Couldnt send the email.");
+   	   	      	}	
+            }
+        });
 	      
 	}
 	
