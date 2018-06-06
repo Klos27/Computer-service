@@ -24,6 +24,7 @@ import models.Payment;
 import models.ServiceRequest;
 import models.Services;
 import models.User;
+import services.NotificationService;
 import services.PartsService;
 import services.ServicesService;
 
@@ -120,6 +121,9 @@ public class EditExistingRequestServlet extends HttpServlet {
 				int status = 3;
 				srd.changeRequestStatus(reqId, status);
 				try {
+					// SEND NOTIFICATION
+					NotificationService notificationService = new NotificationService();
+					notificationService.updateRequestStatus(reqId, 3);
 					paymentDao.generateNewInvoice(reqId);
 				} catch (SQLException e) {
 					//e.printStackTrace();

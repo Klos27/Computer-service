@@ -41,4 +41,8 @@ public class ServiceRequestService {
     public void changeRequestStatus(int reqId, int status) {
         serviceRequestDao.changeRequestStatus(reqId, status);
     }
+    
+    public ServiceRequest getRequestByInvoice(int invoiceId) {
+    	return serviceRequestDao.getRequestByInvoice(invoiceId);
+    }
 }
