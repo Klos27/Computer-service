@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import models.Message;
+import models.ServiceRequest;
 import models.User;
 
 public class UserDao extends DAOManager {
@@ -231,8 +233,35 @@ public class UserDao extends DAOManager {
            System.err.println("Error in hashing password!");
 			e.printStackTrace();
            return null;
-		}
-               
+		}    
    }
-    
+   
+   public User getUser(int requestId) {
+	   ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
+	   ServiceRequest request = serviceRequestDao.getServiceRequest(requestId);
+	   if(request != null) {
+		   try {
+		       	User result = null;
+		       	open();
+		       	Statement stmt = conn.createStatement();
+	            ResultSet rs = stmt.executeQuery("select * from users where id = " + request.getId_client());
+		       	
+		        if(rs.next()) {
+		        	result = new User(rs.getInt("id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("email"), rs.getInt("role"), rs.getString("address"), rs.getString("phone"));
+		        }
+		        rs.close();
+		        close();
+		        return result;        
+	       } catch (SQLException e) {
+	           System.err.println("Error in getting user info password!");
+	           e.printStackTrace();
+	           return null;
+	       } catch (Exception e) {
+	           System.err.println("Error in UserDao");
+				e.printStackTrace();
+	           return null;
+	       }    
+	   }
+	   return null;
+	}
 }

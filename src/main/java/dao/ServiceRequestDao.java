@@ -367,4 +367,40 @@ public class ServiceRequestDao extends DAOManager {
         }
 
     }
+
+	public ServiceRequest getRequestByInvoice(int invoiceId) {
+		Statement stmt = null;
+        ResultSet rs = null;
+        
+        ServiceRequest serviceRq = null;
+     
+        try {
+            open();
+            stmt = conn.createStatement();
+            
+            // Execute operation
+            rs = stmt.executeQuery("SELECT sr.id, sr.id_client, sr.description, sr.status, sr.start_date, sr.end_date FROM payments p left join service_request sr on p.id_service_request = sr.id where p.id =" + invoiceId);
+            if(rs.next())
+            	serviceRq = new ServiceRequest(rs.getInt("id"), rs.getInt("id_client") , rs.getString("description"), rs.getInt("status"), rs.getDate("start_date"), rs.getDate("end_date"));      
+     
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                try {
+					rs.close();
+				} catch (SQLException e) {
+				}
+            }
+            if (stmt != null) {
+                try {
+					stmt.close();
+				} catch (SQLException e) {
+				}
+            }
+            close();
+        }
+        return serviceRq ;
+	}
 }
