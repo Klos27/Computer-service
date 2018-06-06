@@ -70,6 +70,53 @@ public class PartsDao extends DAOManager{
         return result;
     }
     
+ // get all parts list in database
+    public ArrayList<Parts> getParts(int partId, String partName, float priceFrom, float priceTo) {
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        ArrayList<Parts> result = new ArrayList<>();
+
+        // build query
+        String query = "SELECT * FROM `parts` where name like \"%" + partName + "%\"";
+        
+        if(partId > 0)
+        	query = query + " AND id = " + partId;
+        
+        if(priceFrom > 0. && priceTo > 0. && priceFrom > priceTo) {
+        	float tmp = priceFrom;
+        	priceFrom = priceTo;
+        	priceTo = tmp;
+        }
+        
+        if(priceFrom > 0. && priceTo > 0.)
+        	query = query + " AND price BETWEEN " + priceFrom + " AND " + priceTo;
+        else if(priceFrom > 0.)
+        	query = query + " AND price > " + priceFrom;
+        else if(priceTo > 0.)
+        	query = query + " AND price < " + priceTo;
+        
+        try {
+            open();
+            stmt = conn.createStatement();
+
+            // Execute operation
+            rs = stmt.executeQuery(query);
+
+            while(rs.next()) {
+                result.add(new Parts(rs.getInt("id"), rs.getString("name") , rs.getFloat("price")));
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return result;
+    }
+    
+    
     // get part info
 	public Parts getPart(int partId) throws SQLException {
         Statement stmt = null;

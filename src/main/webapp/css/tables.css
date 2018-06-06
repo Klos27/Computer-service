@@ -1,0 +1,33 @@
+table#list {
+        width: 100%;
+    }
+
+thead#list, tbody#list, tr#list, td#list, th#list { display: block; }
+
+tr#list:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+thead#list th#list {
+    height: 150px;
+
+    /*text-align: left;*/
+}
+
+tbody#list {
+    height: 350px;
+    overflow-y: auto;
+}
+
+thead#list {
+    /* fallback */
+}
+
+
+tbody#list td#list, thead#list th#list {
+    width: 25%;
+    float: left;
+}

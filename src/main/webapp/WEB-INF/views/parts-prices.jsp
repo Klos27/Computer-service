@@ -2,6 +2,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<link href="${pageContext.request.contextPath}/css/tables.css" rel="stylesheet" type="text/css" > 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script>
 $(function(){
@@ -29,7 +30,6 @@ $(function(){
 });
 </script>
 
-<h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Parts<i class="fas fa-angle-right ml-3"></i></h1>
 <h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Add new part<i class="fas fa-angle-right ml-3"></i></h4>
 
 <c:if test="${not empty userNotification}">
@@ -60,7 +60,6 @@ $(function(){
 	</div>
 </div>		
 </form>
-
 <h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Edit info<i class="fas fa-angle-right ml-3"></i></h4>
 
 <c:if test="${not empty userNotificationEdit}">
@@ -93,34 +92,53 @@ $(function(){
 	</div>
 </div>		
 </form>
- 
-<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Parts list<i class="fas fa-angle-right ml-3"></i></h4>
 
+<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Parts list<i class="fas fa-angle-right ml-3"></i></h4>
 <div class="row">
-<div style="height:450px;width:750px;overflow:auto;align:center;width:100%;">
 <div class="col-md-10 offset-md-1">
-	<table class="table">
-		<thead align="center" valign="middle">
-		<tr>
-			<th>Part ID</th>
-			<th>Name</th>
-			<th>Price</th>
-			<th>Edit</th>
+	<table id="list" class="table table-striped">
+		<thead id="list" align="center" valign="middle">
+		<tr id="list">
+		<form method="get">
+			<th id="list">Part ID<br /><input type="number" name="f_part_id" value="${f_id_value}"/></th>
+			<th id="list">Name<br /><input type="text" name="f_part_name" value="${f_name_value}"/></th>
+			<th id="list">
+				Price<br />
+				<table style="border:0px">
+					<tr>
+						<td>
+							From:					
+						</td>
+						<td>
+							<input type="text" name="f_part_price_from" value="${f_price_value_from}" style="width: 120px;"/>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							To:
+						</td>
+						<td>
+							<input style="width: 120px;" type="text" name="f_part_price_to" value="${f_price_value_to}"/>
+						</td>
+					</tr>
+				</table>
+			</th>
+			<th id="list">Filter<br /><button type="submit" class="btn btn-primary" value="submit">Filter</button><br /> <br /><button type="reset" class="btn btn-danger" value="Reset">Reset</button></th>
+			</form>
 		</tr>
 		</thead>
-		<tbody>
+		<tbody id="list">
 			<c:forEach items="${partsList}" var="part" >			
-				<tr>
-					<td align="center">${ part.id }</td>
-					<td align="center">${ part.name }</td>
-					<td align="right">${ part.price }</td>
-					<td align="center"><button class="btn btn-info" name="fillId" value="${ part.id }">Edit</button></td>
+				<tr id="list">
+					<td id="list" class="filterable-cell" align="center">${ part.id }</td>
+					<td id="list" class="filterable-cell" align="center">${ part.name }</td>
+					<td id="list" class="filterable-cell" align="right">${ part.price }</td>
+					<td id="list" class="filterable-cell" align="center"><button class="btn btn-info" name="fillId" value="${ part.id }">Edit</button></td>
 				</tr>
 			</c:forEach>
 			</tbody>
 		</table>
 	</div>
-</div>						
-</div>    
-   
+</div>	
+
 <%@ include file="../commons/footer.jspf" %>	

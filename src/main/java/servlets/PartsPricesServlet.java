@@ -18,13 +18,67 @@ public class PartsPricesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
  	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Show parts
-		PartsDao partsDao = new PartsDao();
-		ArrayList<Parts> partsList = null;
-		partsList = partsDao.getAllParts();
+ 		
+		String partId = request.getParameter("f_part_id");
+		String partName = request.getParameter("f_part_name");
+		String partPriceFrom = request.getParameter("f_part_price_from");
+		String partPriceTo = request.getParameter("f_part_price_to");
+
+		request.setAttribute("f_name_value", partName);
 		
-		request.removeAttribute("partsList");
-		request.setAttribute("partsList", partsList);		
+		if(partId == null && partName == null && partPriceFrom == null && partPriceTo == null) {
+			// Show parts
+			PartsDao partsDao = new PartsDao();
+			ArrayList<Parts> partsList = null;
+			partsList = partsDao.getAllParts();
+			
+			request.removeAttribute("partsList");
+			request.setAttribute("partsList", partsList);	
+		}
+		else {
+			float priceFrom = -1f;
+			float priceTo = -1f;
+			int partIdInt = -1;
+			if(partPriceFrom != null) {
+				try {
+					partPriceFrom = partPriceFrom.replace(",", ".");
+					priceFrom = Float.parseFloat(partPriceFrom);
+					if(priceFrom > 0.)
+						request.setAttribute("f_price_value_from", partPriceFrom);
+				}
+				catch(NumberFormatException e) {
+					priceFrom = -1f;
+				}
+			}
+			if(partPriceTo != null) {
+				try {
+					partPriceTo = partPriceTo.replace(",", ".");
+					priceTo = Float.parseFloat(partPriceTo);
+					if(priceTo > 0.)
+						request.setAttribute("f_price_value_to", partPriceTo);
+				}
+				catch(NumberFormatException e) {
+					priceTo = -1f;
+				}
+			}
+			if(partId != null) {
+				try {
+					partIdInt = Integer.parseInt(partId);
+					if(partIdInt > 0)
+						request.setAttribute("f_id_value", partId);
+				}
+				catch(NumberFormatException e) {
+					partIdInt = -1;
+				}
+			}
+			// Show parts
+			PartsDao partsDao = new PartsDao();
+			ArrayList<Parts> partsList = null;
+			partsList = partsDao.getParts(partIdInt, partName, priceFrom, priceTo);
+			
+			request.removeAttribute("partsList");
+			request.setAttribute("partsList", partsList);	
+		}
 		
 		request.setCharacterEncoding("UTF-8");
 		request.getRequestDispatcher("/WEB-INF/views/parts-prices.jsp").forward(request, response);
@@ -50,7 +104,7 @@ public class PartsPricesServlet extends HttpServlet {
 				everythingGood = false;
 			}
 			
-			if(everythingGood && name != null && !name.equals("")) {
+			if(everythingGood && name != null && !name.equals("") && priceFloat > 0.) {
 				PartsDao partsDao = new PartsDao();
 				try {
 					String info = partsDao.addPart(name, priceFloat);
@@ -95,7 +149,7 @@ public class PartsPricesServlet extends HttpServlet {
 				everythingGood = false;
 			}
 			
-			if(everythingGood && name != null && !name.equals("")) {
+			if(everythingGood && name != null && !name.equals("") && priceFloat > 0.) {
 				PartsDao partsDao = new PartsDao();
 				try {
 					String info = partsDao.updatePart(partIdInt, name, priceFloat);
