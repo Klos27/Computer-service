@@ -10,6 +10,8 @@ public class ServiceRequest {
 	private Date start_date;
 	private Date end_date;
 	private int id_employee;
+	String firstname;
+	String lastname;
 	
 	public ServiceRequest(int id, int id_client, String description, int status, Date start_date, Date end_date) {
 		super();
@@ -30,6 +32,19 @@ public class ServiceRequest {
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.id_employee = id_employee;
+	}
+	
+	public ServiceRequest(int id, int id_client, String description, int status, Date start_date, Date end_date, int id_employee, String firstname, String lastname) {
+		super();
+		this.id = id;
+		this.id_client = id_client;
+		this.description = description;
+		this.status = status;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.id_employee = id_employee;
+		this.firstname = firstname;
+		this.lastname = lastname;
 	}
 
 	public int getId() {
@@ -86,6 +101,22 @@ public class ServiceRequest {
 
 	public void setId_employee(int id_employee) {
 		this.id_employee = id_employee;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
 	@Override

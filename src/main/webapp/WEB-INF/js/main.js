@@ -58,6 +58,22 @@ $(document).ready(function () {
 
     });
     
+    $("#show-statistics").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		monthval: $('#monthval').val(),
+    	}
+
+        $.post( "statistics", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully generated statistics.', '/service/statistics');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+    });
+    
     $("#add-request-form").submit(function (e) {
         e.preventDefault();
 
@@ -69,7 +85,7 @@ $(document).ready(function () {
 
         $.post( "/user/new-request", credentials)
   		.done(function() {
-  			openModal('Congratulations!', 'You have succesfully added service request in our system.', '/user/new-request');
+  			openModal('System:', 'You have succesfully generated', '/user/new-request');
   		})
   		.fail(function(data) {
   			showError(data.responseText);
