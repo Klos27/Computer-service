@@ -8,7 +8,6 @@ import java.util.List;
 
 public class ServiceRequestService {
 
-    private static final String String = null;
 	private ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
 
     public List<ServiceRequest> showNewRequests() {
