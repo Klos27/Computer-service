@@ -148,6 +148,9 @@
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/admin/list' ? 'active' : ''}">
 								<a class="nav-link font-bold" href="/admin/list">USERS LIST</a>
 							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/statistics' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/statistics">STATISTICS</a>
+							</li>
 						</c:if>
 						
 						<li class="nav-item ${(requestScope['javax.servlet.forward.request_uri'] == '/contact') ? 'active' : '' }">

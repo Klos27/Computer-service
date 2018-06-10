@@ -14,6 +14,8 @@
 				<th>Start date</th>
 				<th>End date</th>
 				<th>Worker id</th>
+				<th>Firstname</th>
+				<th>Lastname</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -26,6 +28,8 @@
 						<td>${ request.start_date }</td>
 						<td>${ request.end_date }</td>
 						<td>${ request.id_employee }</td>
+						<td>${ request.firstname }</td>
+						<td>${ request.lastname }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -34,7 +38,8 @@
 		<table class="table">
 			<thead>
 			<tr>
-				<th>Name of worker</th>
+				<th>Firstname</th>
+				<th>Lastname</th>
 				<th>ID</th>
 				<th>Number of tasks</th>
 			</tr>
@@ -44,6 +49,7 @@
 				<c:forEach items="${showAvail}" var="request" >
 					<tr>
 						<td>${ request.firstname } </td>
+						<td>${ request.lastname } </td>
 						<td>${ request.id }</td>
 						<c:choose>
 							<c:when test = "${request.id_service_request > 1}">
@@ -61,14 +67,29 @@
 			</tbody>
 		</table>
 		Re-assign request:<br/>
+
 		<form id="change-request">
-			<select id="empid">
-				<c:forEach items="${showAvail}" var="request">
-	    			<option id="empid" name="${request.id}" value="${request.id}">${request.firstname}</option>
-				</c:forEach>
-			</select>
-			<input type="number" id="reqid" oninput="success()" name="reqid" placeholder="type ID of request" />
-			<button type="submit" id="button" disabled>Change</button>
+			<table class="table">
+			<thead align="center" valign="middle">
+			<tr>
+				<th>Chose worker</th>
+				<th>Type ID of request</th>
+				<th>Re-assign</th>
+			</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td align="center">
+						<select id="empid" class ="form-control">
+							<c:forEach items="${showAvail}" var="request">
+				    			<option id="empid" name="${request.id}" value="${request.id}">${request.firstname} ${request.lastname}</option>
+							</c:forEach>
+						</select></td>
+					<td align="center"><input type="number" id="reqid" oninput="success()" name="reqid" placeholder="type ID of request" class="form-control input-sm"/></td>
+					<td align="center"><button type="submit" id="button" disabled class="btn btn-info">Change</button></td>
+				</tr>
+			</tbody>
+			</table>
 		</form>
 	</div>
 </div>

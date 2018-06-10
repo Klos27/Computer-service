@@ -8,7 +8,7 @@ import java.util.List;
 
 public class ServiceRequestService {
 
-    private ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
+	private ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
 
     public List<ServiceRequest> showNewRequests() {
         return serviceRequestDao.showNewRequests();
@@ -25,7 +25,11 @@ public class ServiceRequestService {
     public List<Employee> showAvailableWorkers() {
         return serviceRequestDao.showAvailableWorkers();
     }
-
+    
+    public List<Employee> showAvailableWorkersWithDate(String month, String year) {
+        return serviceRequestDao.showAvailableWorkersWithDate(month, year);
+    }
+    
     public void takeRequest(int id_employee, int id_service_request) {
         serviceRequestDao.takeRequest(id_employee, id_service_request);
     }
