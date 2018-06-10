@@ -245,12 +245,12 @@ public class ServiceRequestDao extends DAOManager {
         return requests;
     }
     
-    public List<Employee> showAvailableWorkersWithDate(String month) {
+    public List<Employee> showAvailableWorkersWithDate(String month, String year) {
     	 List<Employee> requests = new ArrayList<>();
          try {
              open();
              PreparedStatement ps = conn.prepareStatement(
-                     "SELECT users.first_name, users.last_name, users.id, count(service_request_parts.id_part) as \"zamowienia\", sum(payments.amount) as \"zarobek\" from users join service_request_employee on users.id = service_request_employee.id_employee join service_request on service_request_employee.id_service_request = service_request.id join service_request_parts on service_request.id = service_request_parts.id_service_request join payments on service_request_parts.id_service_request = payments.id_service_request where MONTH(service_request.start_date) = " + month + " group by users.id");
+                     "SELECT users.first_name, users.last_name, users.id, count(service_request_parts.id_part) as \"zamowienia\", sum(payments.amount) as \"zarobek\" from users join service_request_employee on users.id = service_request_employee.id_employee join service_request on service_request_employee.id_service_request = service_request.id join service_request_parts on service_request.id = service_request_parts.id_service_request join payments on service_request_parts.id_service_request = payments.id_service_request where MONTH(service_request.start_date) = " + month + " and YEAR(service_request.start_date) = " + year + " group by users.id");
 
              ResultSet rs = ps.executeQuery();
              while (rs.next()) {

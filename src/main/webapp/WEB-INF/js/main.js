@@ -63,6 +63,7 @@ $(document).ready(function () {
 
     	var credentials = {
     		monthval: $('#monthval').val(),
+    		yearval: $('#yearval').val()
     	}
 
         $.post( "statistics", credentials)

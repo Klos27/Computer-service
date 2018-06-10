@@ -15,11 +15,14 @@ import services.ServiceRequestService;
 
 @WebServlet("/service/statistics")
 public class StatisticServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 	ServiceRequestService serviceRequestService = new ServiceRequestService();
 	private String month;
+	private String year;
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Employee> requests = serviceRequestService.showAvailableWorkersWithDate(month);
+		List<Employee> requests = serviceRequestService.showAvailableWorkersWithDate(month, year);
 		request.removeAttribute("showAvailWithDate");
 		request.setAttribute("showAvailWithDate", requests);
 		request.getRequestDispatcher("/WEB-INF/views/statistics.jsp").forward(request, response);
@@ -27,6 +30,7 @@ public class StatisticServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		month = request.getParameter("monthval");
+		year = request.getParameter("yearval");
 		//System.out.println(month);
 	}
 

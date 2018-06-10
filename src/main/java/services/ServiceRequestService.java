@@ -26,8 +26,8 @@ public class ServiceRequestService {
         return serviceRequestDao.showAvailableWorkers();
     }
     
-    public List<Employee> showAvailableWorkersWithDate(String month) {
-        return serviceRequestDao.showAvailableWorkersWithDate(month);
+    public List<Employee> showAvailableWorkersWithDate(String month, String year) {
+        return serviceRequestDao.showAvailableWorkersWithDate(month, year);
     }
     
     public void takeRequest(int id_employee, int id_service_request) {

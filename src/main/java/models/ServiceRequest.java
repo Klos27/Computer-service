@@ -10,8 +10,8 @@ public class ServiceRequest {
 	private Date start_date;
 	private Date end_date;
 	private int id_employee;
-	String firstname;
-	String lastname;
+	private String firstname;
+	private String lastname;
 	
 	public ServiceRequest(int id, int id_client, String description, int status, Date start_date, Date end_date) {
 		super();

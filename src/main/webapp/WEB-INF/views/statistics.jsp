@@ -3,12 +3,13 @@
 <h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Statistics<i class="fas fa-angle-right ml-3"></i></h1>
 <div class="row">
 	<div class="col-md-10 offset-md-1">
-		Chose month to generate statistics:<br/>
+		Chose date to generate statistics:<br/>
 		<form id="show-statistics">
 			<table class="table">
 			<thead align="center" valign="middle">
 			<tr>
 				<th>Chose month</th>
+				<th>Chose year</th>
 				<th>Generate</th>
 			</tr>
 			</thead>
@@ -28,6 +29,15 @@
 				    		<option id="monthval" name="10" value="10">October</option>
 				    		<option id="monthval" name="11" value="11">November</option>
 				    		<option id="monthval" name="12" value="12">December</option>
+						</select></td>
+					<td align="center">
+						<select id="yearval" class ="form-control">
+				    		<option id="yearval" name="2018" value="2018">2018</option>
+				    		<option id="yearval" name="2019" value="2019">2019</option>
+				    		<option id="yearval" name="2020" value="2020">2020</option>
+				    		<option id="yearval" name="2021" value="2021">2021</option>
+				    		<option id="yearval" name="2022" value="2022">2022</option>
+				    		<option id="yearval" name="2023" value="2023">2023</option>
 						</select></td>
 					<td align="center"><button type="submit" id="button" class="btn btn-info">Generate</button></td>
 				</tr>

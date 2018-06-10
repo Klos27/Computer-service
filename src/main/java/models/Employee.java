@@ -1,12 +1,12 @@
 package models;
 
 public class Employee {
-	String firstname;
-	String lastname;
-	int id;
-	int id_service_request;
-	int orders;
-	double earnings;
+	private String firstname;
+	private String lastname;
+	private int id;
+	private int id_service_request;
+	private int orders;
+	private double earnings;
 	
 	public Employee(String firstname, String lastname, int id, int id_service_request) {
 		this.firstname = firstname;
