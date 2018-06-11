@@ -1,32 +1,26 @@
 package servlets;
 
-import java.io.IOException;
+import dao.PaymentDao;
+import dao.ServiceRequestDao;
+import models.Parts;
+import models.ServiceRequest;
+import models.Services;
+import models.User;
+import services.NotificationService;
+import services.PartsService;
+import services.ServiceRequestService;
+import services.ServicesService;
 
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import dao.PartsDao;
-import dao.PaymentDao;
-import dao.ServiceRequestDao;
-import dao.ServicesDao;
-import models.Parts;
-import models.Payment;
-import models.ServiceRequest;
-import models.Services;
-import models.User;
-import services.NotificationService;
-import services.PartsService;
-import services.ServicesService;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/service/existing-requests/edit")
 public class EditExistingRequestServlet extends HttpServlet {
@@ -133,8 +127,79 @@ public class EditExistingRequestServlet extends HttpServlet {
 				request.getRequestDispatcher("/service/existing-requests").forward(request, response);
 				return true;
 			}
+		}
+		return false;
+	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		addServiceOperation(request, response);
+		addPart(request, response);
+		deletePart(request, response);
+		deleteService(request, response);
+	}
+
+	private boolean addServiceOperation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		ServicesService servicesService = new ServicesService();
+		String serviceIdParam = request.getParameter("addService");
+		String reqIdStr = request.getParameter("requestId");
 
 
+		if (serviceIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			servicesService.addServiceToRequest(reqId, Integer.parseInt(serviceIdParam));
+			doGet(request, response);
+
+			return true;
+		}
+		return false;
+	}
+
+	private boolean addPart(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		PartsService partsService = new PartsService();
+		String partIdParam = request.getParameter("addPart");
+		String reqIdStr = request.getParameter("requestId");
+
+
+		if (partIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			partsService.addPartToRequest(reqId, Integer.parseInt(partIdParam));
+			doGet(request, response);
+
+			return true;
+		}
+		return false;
+	}
+
+	private boolean deletePart(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		ServiceRequestService serviceRequestService = new ServiceRequestService();
+		String partIdParam = request.getParameter("deletePart");
+		String reqIdStr = request.getParameter("requestId");
+
+
+		if (partIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			serviceRequestService.deletePartFromRequest(reqId, Integer.parseInt(partIdParam));
+			doGet(request, response);
+
+			return true;
+		}
+		return false;
+	}
+
+
+	private boolean deleteService(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		ServiceRequestService serviceRequestService = new ServiceRequestService();
+		String serviceIdParam = request.getParameter("deleteService");
+		String reqIdStr = request.getParameter("requestId");
+
+
+		if (serviceIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			serviceRequestService.deleteServiceFromRequest(reqId, Integer.parseInt(serviceIdParam));
+			doGet(request, response);
+
+			return true;
 		}
 		return false;
 	}

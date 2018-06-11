@@ -49,4 +49,11 @@ public class ServiceRequestService {
     public ServiceRequest getRequestByInvoice(int invoiceId) {
     	return serviceRequestDao.getRequestByInvoice(invoiceId);
     }
+
+    public void deletePartFromRequest(int reqId, int partId) {
+        serviceRequestDao.deletePartFromRequest(reqId, partId);
+    }
+    public void deleteServiceFromRequest(int reqId, int serviceId) {
+        serviceRequestDao.deleteServiceFromRequest(reqId, serviceId);
+    }
 }

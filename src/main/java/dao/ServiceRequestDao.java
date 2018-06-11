@@ -1,20 +1,14 @@
 package dao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import models.Employee;
+import models.Message;
+import models.ServiceRequest;
+import models.User;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import models.Employee;
-import models.Message;
-
-import models.ServiceRequest;
-import models.User;
-import models.ServiceRequest;
 
 public class ServiceRequestDao extends DAOManager {
 	
@@ -433,4 +427,108 @@ public class ServiceRequestDao extends DAOManager {
         }
         return serviceRq ;
 	}
+
+
+    public void addServiceToRequest(int reqId, int serviceId, double price) {
+        try {
+            open();
+            PreparedStatement ps = conn.prepareStatement(
+                    String.format("INSERT INTO `service_request_services` (`id_service_request`, `id_service`, `service_price`)" +
+                                    " VALUES ('%s', '%s', '%s')", reqId, serviceId, price));
+            ps.executeUpdate();
+            ps.close();
+
+
+        } catch (SQLException e) {
+            System.err.println("Error in inserting adding service!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
+
+    public void deleteServiceFromRequest(int reqId, int serviceId) {
+        try {
+            open();
+            PreparedStatement ps = conn.prepareStatement(
+                    String.format("DELETE FROM service_request_services WHERE" +
+                            " id_service_request = %s AND id_service = %s LIMIT 1", reqId, serviceId));
+            ps.executeUpdate();
+            ps.close();
+
+
+        } catch (SQLException e) {
+            System.err.println("Error in inserting adding service!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
+
+    public void addPartToRequest(int reqId, int partId, double price) {
+        try {
+            open();
+            PreparedStatement ps = conn.prepareStatement(
+                    String.format("INSERT INTO `service_request_parts` (`id_service_request`, `id_part`, `part_price`)" +
+                            " VALUES ('%s', '%s', '%s')", reqId, partId, price));
+            ps.executeUpdate();
+            ps.close();
+
+
+        } catch (SQLException e) {
+            System.err.println("Error in inserting adding service!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
+
+    public void deletePartFromRequest(int reqId, int partId) {
+        try {
+            open();
+            PreparedStatement ps = conn.prepareStatement(
+                    String.format("DELETE FROM service_request_parts WHERE" +
+                            " id_service_request = %s AND id_part = %s LIMIT 1", reqId, partId));
+            ps.executeUpdate();
+            ps.close();
+
+
+        } catch (SQLException e) {
+            System.err.println("Error in inserting adding service!");
+            e.printStackTrace();
+
+        } catch (Exception e) {
+            System.err.println("Error in ServiceRequestDao!");
+            e.printStackTrace();
+
+        }
+        finally {
+            close();
+        }
+
+    }
+
+
+
 }

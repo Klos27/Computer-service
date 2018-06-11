@@ -190,6 +190,31 @@ public class PartsDao extends DAOManager{
         	close();
         }
     }
+
+    public Double getCurrentPartPrice(int partId) {
+        Statement stmt = null;
+        ResultSet rs = null;
+
+        Double result = null;
+
+        try {
+            open();
+            stmt = conn.createStatement();
+
+            // Execute operation
+            rs = stmt.executeQuery("SELECT * FROM `parts` where id = " + partId);
+
+            while(rs.next()) {
+                result = rs.getDouble("price");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error at executing query");
+            e.printStackTrace();
+        } finally {
+            close();
+        }
+        return result;
+    }
     
     
 }
