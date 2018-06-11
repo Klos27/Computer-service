@@ -1,19 +1,12 @@
 package dao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
-import models.Message;
 import models.ServiceRequest;
 import models.User;
+import models.UserContract;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDao extends DAOManager {
 	
@@ -263,5 +256,42 @@ public class UserDao extends DAOManager {
 	       }    
 	   }
 	   return null;
+	}
+
+	public ArrayList<UserContract> getUserContractsList()  {
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		ArrayList<UserContract> result = new ArrayList<>();
+
+		try {
+			open();
+			stmt = conn.createStatement();
+
+			// Execute operation
+			rs = stmt.executeQuery(String.format("SELECT c.id, id_user, first_name, last_name, role, date_start, date_end, salary" +
+					"  FROM `users_contracts` uc JOIN `users` u ON uc.id_user = u.id" +
+					" JOIN `contracts` c ON uc.id_contract = c.id WHERE role > 0"));
+
+			while (rs.next()) {
+				int contractId = rs.getInt("id");
+				int userId = rs.getInt("id_user");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				int role = rs.getInt("role");
+				Date dateStart = rs.getDate("date_start");
+				Date dateEnd = rs.getDate("date_end");
+				Double salary = rs.getDouble("salary");
+				UserContract userContract = new UserContract(contractId, userId, firstName, lastName, role, dateStart, dateEnd, salary);
+				result.add(userContract);
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Error at executing query");
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
 	}
 }

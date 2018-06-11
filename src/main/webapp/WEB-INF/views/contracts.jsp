@@ -1,9 +1,55 @@
 <%@ include file="../commons/header.jspf" %>
 
-	<H1>Contracts</H1>
+<h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Contract list<i class="fas fa-angle-right ml-3"></i></h1>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+<div class="row">
 
-<%@ include file="../commons/footer.jspf" %>	
+	<div class="col-md-10 offset-md-1">
+		<table class="table">
+			<thead>
+			<tr>
+				<th>User ID</th>
+				<th>First name</th>
+				<th>Last name</th>
+				<th>Role</th>
+				<th>Start date</th>
+				<th>End date</th>
+				<th>Salary</th>
+				<th>Action</th>
+			</tr>
+			</thead>
+			<tbody>
+
+			<c:forEach items="${userContractList}" var="userContract" >
+				<tr>
+					<td align="center">${ userContract.userId } </td>
+					<td align="center">${ userContract.firstName }</td>
+					<td align="center">${ userContract.lastName }</td>
+					<td align="center">
+						<c:choose>
+							<c:when test="${ userContract.role } == 3">
+								Worker
+							</c:when>
+							<c:when test="${ userContract.role } == 2">
+								Foreman
+							</c:when>
+						</c:choose></td>
+					<td align="center">${ userContract.dateStart }</td>
+					<td align="center">${ userContract.dateEnd }</td>
+					<td align="center">${ userContract.salary }</td>
+					<td align="center">
+						<form action="#" method="post">
+							<input type = "submit" class="btn btn-danger" value = "End contract" />
+						</form>
+					</td>
+
+				</tr>
+			</c:forEach>
+
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+<%@ include file="../commons/footer.jspf" %>

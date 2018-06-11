@@ -1,13 +1,16 @@
 package services;
 
 import dao.AdminDao;
+import dao.UserDao;
 import models.User;
+import models.UserContract;
 
 import java.util.List;
 
 public class AdminService {
 
     private AdminDao adminDao = new AdminDao();
+    private UserDao userDao = new UserDao();
 
     public List<User> showAllUsers(String filter) {
         return adminDao.showAllUsers(filter);
@@ -19,6 +22,10 @@ public class AdminService {
     
     public String setRole(String id, String role) {
         return adminDao.setRole(id, role);
+    }
+
+    public List<UserContract> getContractList() {
+        return userDao.getUserContractsList();
     }
     
 }

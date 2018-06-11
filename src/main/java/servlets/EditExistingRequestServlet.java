@@ -89,9 +89,6 @@ public class EditExistingRequestServlet extends HttpServlet {
 //					request.setAttribute("requestChat", "requestChat");
 				}
 			}
-
-
-			// zeby nie wywalalo illegal state costam, ze 2 razy przekierowuje
 			redirected = checkActionParameter(request, response);
 		}
 
