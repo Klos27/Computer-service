@@ -27,11 +27,14 @@
 					<td align="center">${ userContract.lastName }</td>
 					<td align="center">
 						<c:choose>
-							<c:when test="${ userContract.role } == 3">
+							<c:when test="${ userContract.role  == 3}">
 								Worker
 							</c:when>
-							<c:when test="${ userContract.role } == 2">
+							<c:when test="${ userContract.role  == 2}">
 								Foreman
+							</c:when>
+							<c:when test="${ userContract.role  == 1}">
+								Admin
 							</c:when>
 						</c:choose></td>
 					<td align="center">${ userContract.dateStart }</td>
