@@ -58,6 +58,23 @@ $(document).ready(function () {
 
     });
     
+    $("#show-statistics").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		monthval: $('#monthval').val(),
+    		yearval: $('#yearval').val()
+    	}
+
+        $.post( "statistics", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully generated statistics.', '/service/statistics');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+    });
+    
     $("#add-request-form").submit(function (e) {
         e.preventDefault();
 
@@ -69,7 +86,7 @@ $(document).ready(function () {
 
         $.post( "/user/new-request", credentials)
   		.done(function() {
-  			openModal('Congratulations!', 'You have succesfully added service request in our system.', '/user/new-request');
+  			openModal('System:', 'You have succesfully generated', '/user/new-request');
   		})
   		.fail(function(data) {
   			showError(data.responseText);
@@ -150,7 +167,39 @@ $(document).ready(function () {
   			showError(data.responseText);
   		})
 
-    });          
+    });     
+    
+    $("#add-worker-form").submit(function (e) {
+        e.preventDefault();
+
+    	var credentials = {
+    		first_name: $('#first_name').val(),
+    		last_name: $('#last_name').val(),
+    		email: $('#email').val()
+    	}
+
+        $.post( "add-worker", credentials)
+  		.done(function() {
+  			openModal('Congratulations!', 'You have succesfully added worker.', '/admin/add-worker');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+
+    });
+    
+    $(".select-role").on('change', function(e) {   
+    	
+    	const value = this.value.split('-');
+
+        $.post( "list", {id: value[1], role: value[0]})
+  		.done(function() {
+  			openModal('Congratulations!', 'You changed the role!');
+  		})
+  		.fail(function(data) {
+  			showError(data.responseText);
+  		})
+    })
           
     function getChatMessages() { 
         if (

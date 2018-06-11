@@ -20,6 +20,8 @@ import models.Payment;
 import models.ServiceRequest;
 import models.Services;
 import models.User;
+import services.NotificationService;
+import services.ServiceRequestService;
 
 @WebServlet("/service/confirm-payment")
 public class ConfirmPaymentServlet extends HttpServlet {
@@ -76,6 +78,14 @@ public class ConfirmPaymentServlet extends HttpServlet {
 			PaymentDao paymentDao = new PaymentDao();
 			try {
 				paymentDao.confirmPayment(invoiceId);
+				
+				ServiceRequestService serviceRequestService = new ServiceRequestService();
+				serviceRequestService.changeRequestStatus(serviceRequestService.getRequestByInvoice(invoiceId).getId(), 4);
+				
+				// SEND NOTIFICATION TO USER
+				NotificationService notificationService = new NotificationService();
+				notificationService.confirmPaymentNotification(invoiceId);
+				
 				request.removeAttribute("userNotification");
 				request.setAttribute("userNotification", "Confirmed payment for invoice no: " + invoiceId);
 			} catch (SQLException e) {

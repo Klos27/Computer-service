@@ -2,9 +2,7 @@ package services;
 
 import dao.PartsDao;
 import dao.ServiceRequestDao;
-import models.Employee;
 import models.Parts;
-import models.ServiceRequest;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +10,7 @@ import java.util.List;
 public class PartsService {
 
     private PartsDao partsDao = new PartsDao();
+    private ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
 
     public List<Parts> getAllParts() {
         return partsDao.getAllParts();
@@ -24,6 +23,11 @@ public class PartsService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addPartToRequest(int reqId, int partId) {
+        Double partCurrentPrice = partsDao.getCurrentPartPrice(partId);
+        serviceRequestDao.addPartToRequest(reqId, partId, partCurrentPrice);
     }
 
 }

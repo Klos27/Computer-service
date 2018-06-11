@@ -123,6 +123,12 @@
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/confirm-payment' ? 'active' : ''}">
 								<a class="nav-link font-bold" href="/service/confirm-payment">CONFIRM PAYMENT</a>
 							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/parts' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/parts">PARTS</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/operations' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/operations">SERVICES</a>
+							</li>
 						</c:if>
 						<c:if test = "${user.getRole() == 1}">
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/contracts' ? 'active' : ''}">
@@ -130,6 +136,20 @@
 							</li>
 							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/confirm-payment' ? 'active' : ''}">
 								<a class="nav-link font-bold" href="/service/confirm-payment">CONFIRM PAYMENT</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/parts' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/parts">PARTS</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/operations' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/operations">SERVICES</a>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/admin/add-worker' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/admin/add-worker">ADD WORKER</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/admin/list' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/admin/list">USERS LIST</a>
+							</li>
+							<li class="nav-item ${requestScope['javax.servlet.forward.request_uri'] == '/service/statistics' ? 'active' : ''}">
+								<a class="nav-link font-bold" href="/service/statistics">STATISTICS</a>
 							</li>
 						</c:if>
 						

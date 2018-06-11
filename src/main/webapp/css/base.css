@@ -54,3 +54,24 @@
 	overflow-y: auto;
 	overflow-x: none;
 }
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+width: 12px;
+height: 12px;
+}
+
+::-webkit-scrollbar-track {
+border: 1px solid yellowgreen;
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+background: #5bc0de;  
+border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+background: #428bca;  
+}
+/* END Scrollbar styles */

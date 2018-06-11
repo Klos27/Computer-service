@@ -143,7 +143,7 @@ public class PaymentDao extends DAOManager {
             stmt = conn.createStatement();
             Date date = new Date(System.currentTimeMillis());
             String query = "INSERT INTO `payments` (`id`, `id_service_request`, `amount`, `status`, `creation_date`) VALUES (NULL, " + requestId + ", " + sum + " , '0', " + "\""+ date.toString() +"\"" + ")";
-            System.out.println(query);
+            //System.out.println(query);
             result = stmt.executeUpdate(query);
         } catch (SQLException e) {
             System.err.println("Error at executing query");

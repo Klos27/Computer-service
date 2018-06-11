@@ -3,10 +3,10 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<%--<c:if test="${not empty userNotification}">--%>
-<%--&lt;%&ndash; Notify user about errrors &ndash;%&gt;--%>
-<%--<div class="user-request-notification"> ${userNotification} </div>--%>
-<%--</c:if>--%>
+<c:if test="${not empty userNotification}">
+<%-- Notify user about errrors --%>
+<div class="user-request-notification"> ${userNotification} </div>
+</c:if>
 
 
     <%-- Display user's request's details--%>
@@ -81,6 +81,7 @@
 							<th>Name</th>
 							<th>Description</th>
 							<th>Price</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,6 +91,11 @@
 								<td align="center">${ requestService.name }</td>
 								<td align="center">${ requestService.description }</td>
 								<td align="center">${ requestService.price }</td>
+								<td align="center">
+									<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }&deleteService=${ requestService.id }" method="post">
+										<input type = "submit" class="btn btn-danger" value = "Delete" />
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -101,17 +107,18 @@
 					</tbody>
 				</table>
 				
-				<form action="">
+				<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }" method="post">
 					<div class="row">
 						<div class="col-6">
-							<select name="services" class="form-control">
+							<select name="addService" class="form-control">
 								<c:forEach items="${allServices}" var="service" >
-									<option>${service.name}</option>
+									<option value = ${service.id}>${service.name}</option>
 								</c:forEach>
 							</select>						
 						</div>
 						<div class="col-6">
-							<a href="#" class="btn btn-info">Add service</a>						
+							<input type = "submit" class="btn btn-info" value = "Add service" />
+							<%--<a href="" class="btn btn-info">Add service</a>--%>
 						</div>
 					</div>
 				</form>
@@ -131,6 +138,7 @@
 							<th>Part ID</th>
 							<th>Name</th>
 							<th>Price</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -139,6 +147,11 @@
 								<td align="center">${ requestPart.id }</td>
 								<td align="center">${ requestPart.name }</td>
 								<td align="center">${ requestPart.price }</td>
+								<td align="center">
+									<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }&deletePart=${ requestPart.id }" method="post">
+										<input type = "submit" class="btn btn-danger" value = "Delete" />
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -148,18 +161,19 @@
 						</tr>
 					</tbody>
 				</table>
-				
-				<form action="">
+
+				<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }" method="post">
 					<div class="row">
 						<div class="col-6">
-							<select name="parts" class="form-control">
+							<select name="addPart" class="form-control">
 								<c:forEach var="part" items="${allParts}">
-									<option>${part.name}</option>
+									<option value = ${part.id}>${part.name}</option>
 								</c:forEach>
 							</select>
 						</div>
 						<div class="col-6">
-							<a href="#" class="btn btn-info">Add part</a>
+							<input type = "submit" class="btn btn-info" value = "Add part" />
+							<%--<a href="#" class="btn btn-info">Add part</a>--%>
 						</div>
 					</div>
 				</form>
@@ -167,80 +181,6 @@
 			</div>
 			</div>
 
-	  		<%-- Payments: --%>
-	  				<%----%>
-			<%--<h4 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Payment info<i class="fas fa-angle-right ml-3"></i></h4>--%>
-	  		<%--<div class="user-request-notification"> ${ userNotificationPayment } </div>		--%>
-  			<%--<div class="row">--%>
-			<%--<div class="col-md-10 offset-md-1">--%>
-				<%--<table class="table">--%>
-					<%--<thead align="center">--%>
-						<%--<tr>--%>
-							<%--<th>Invoice ID</th>--%>
-							<%--<th>Amount</th>--%>
-							<%--<th>Status</th>--%>
-							<%--<th>Creation date</th>--%>
-							<%--<th>Invoice</th>--%>
-						<%--</tr>--%>
-					<%--</thead>--%>
-					<%--<tbody>						--%>
-						<%--<tr>--%>
-							<%--<td align="center">${ requestPayment.id }</td>--%>
-							<%--<td align="center"><span class="price-higlight">${ requestPayment.amount }</span></td>--%>
-							<%--<c:choose>--%>
-							    <%--<c:when test="${ requestPayment.status=='0' }">--%>
-		       						<%--<td align="center">Unpaid</td>--%>
-							    <%--</c:when>--%>
-							    <%--<c:when test="${ requestPayment.status=='1' }">--%>
-		       						<%--<td align="center">Paid</td>--%>
-							    <%--</c:when>					    						    					    						        --%>
-							    <%--<c:otherwise>--%>
-		       						<%--<td align="center"></td>--%>
-							    <%--</c:otherwise>--%>
-							<%--</c:choose>--%>
-							<%--<td align="center">${ requestPayment.creation_date }</td>--%>
-							<%--<c:choose>--%>
-							    <%--<c:when test="${not empty requestPayment}">--%>
-		       						<%--<td align="center"><a target="_blank" href="/user/download-invoice?request=${ requestDetails.id }&invoice=${ requestPayment.id }" class="btn btn-info">Download</a></td>--%>
-							    <%--</c:when>			    						    					    						        --%>
-							    <%--<c:otherwise>--%>
-		       						<%--<td align="center"></td>--%>
-							    <%--</c:otherwise>--%>
-							<%--</c:choose>--%>
-							<%--</tr>						--%>
-					<%--</tbody>--%>
-				<%--</table>--%>
-			<%--</div>--%>
-			<%--</div>			--%>
-	  		<%--<c:if test="${not empty requestPayment}">--%>
-				<%--&lt;%&ndash; Print account info &ndash;%&gt;--%>
-				<%----%>
-				<%--<div class="row">--%>
-				<%--<div class="col-md-4 offset-md-4">--%>
-					<%--<table class="table">--%>
-						<%--<thead align="center" valign="middle">--%>
-						<%--<tr>--%>
-							<%--<th>You can pay to our account:</th>--%>
-						<%--</tr>--%>
-						<%--</thead>--%>
-						<%--<tbody>			--%>
-							<%--<tr><td>ISI Bank 11 2222 3333 4444 5555 6666 7777</td></tr>--%>
-							<%--<tr>--%>
-								<%--<td>--%>
-									<%--PPPM Computer Service<br />--%>
-									<%--ul. Warszawska 24<br />--%>
-									<%--31-155 Kraków--%>
-								<%--</td>--%>
-							<%--</tr>--%>
-							<%--<tr><td>Amount: ${ requestPayment.amount } zł</td></tr>--%>
-							<%--<tr><td>Title: Service request ${ requestDetails.id } invoice ${ requestPayment.id }</td></tr>--%>
-						<%--</tbody>--%>
-					<%--</table>--%>
-				<%--</div>--%>
-				<%--</div>						--%>
-			<%--</c:if>--%>
-	  			<%----%>	
-	  		
 	  		<%-- Chat: --%>		
 	  				
 	  		<div class="row mt-5">
