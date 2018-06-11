@@ -27,5 +27,9 @@ public class AdminService {
     public List<UserContract> getContractList() {
         return userDao.getUserContractsList();
     }
+
+    public void endContract(int contractId) {
+        adminDao.endContract(contractId);
+    }
     
 }

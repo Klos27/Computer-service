@@ -41,7 +41,7 @@
 					<td align="center">${ userContract.dateEnd }</td>
 					<td align="center">${ userContract.salary }</td>
 					<td align="center">
-						<form action="#" method="post">
+						<form action="/service/contracts?endContract=${ userContract.contractId }" method="post">
 							<input type = "submit" class="btn btn-danger" value = "End contract" />
 						</form>
 					</td>

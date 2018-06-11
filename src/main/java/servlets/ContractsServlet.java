@@ -33,4 +33,24 @@ public class ContractsServlet extends HttpServlet {
 
 		}
 	}
+
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		endContract(request, response);
+        doGet(request, response);
+	}
+
+	private boolean endContract(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		AdminService adminService = new AdminService();
+		String contractIdParam = request.getParameter("endContract");
+
+
+		if (contractIdParam != null) {
+			int contractId = Integer.parseInt(contractIdParam);
+			adminService.endContract(contractId);
+
+			return true;
+		}
+		return false;
+	}
 }
