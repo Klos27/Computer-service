@@ -56,7 +56,7 @@
 				<th>Firstname</th>
 				<th>Lastname</th>
 				<th>ID</th>
-				<th>Orders</th>
+				<th>Services</th>
 				<th>Earnings</th>
 			</tr>
 			</thead>

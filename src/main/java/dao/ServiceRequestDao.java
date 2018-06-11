@@ -244,7 +244,7 @@ public class ServiceRequestDao extends DAOManager {
          try {
              open();
              PreparedStatement ps = conn.prepareStatement(
-                     "SELECT users.first_name, users.last_name, users.id, count(service_request_parts.id_part) as \"zamowienia\", sum(payments.amount) as \"zarobek\" from users join service_request_employee on users.id = service_request_employee.id_employee join service_request on service_request_employee.id_service_request = service_request.id join service_request_parts on service_request.id = service_request_parts.id_service_request join payments on service_request_parts.id_service_request = payments.id_service_request where MONTH(service_request.start_date) = " + month + " and YEAR(service_request.start_date) = " + year + " group by users.id");
+                     "select users.first_name, users.last_name, users.id, count(service_request_services.id_service_request) as \"zamowienia\", sum(service_request_services.service_price) as \"zarobek\" from users join service_request_employee on users.id = service_request_employee.id_employee join service_request on service_request_employee.id_service_request = service_request.id join service_request_services on service_request.id = service_request_services.id_service_request where MONTH(service_request.start_date) = " + month + " AND YEAR(service_request.start_date) = " + year + " group by users.id");
 
              ResultSet rs = ps.executeQuery();
              while (rs.next()) {
@@ -371,11 +371,18 @@ public class ServiceRequestDao extends DAOManager {
     public void changeRequestStatus(int reqId, int status) {
         try {
             open();
-
-            PreparedStatement ps = conn.prepareStatement(
-                    String.format("update service_request set status = " + status + " where id = " + reqId));
-            ps.executeUpdate();
-            ps.close();
+            if(status != 4) {
+	            PreparedStatement ps = conn.prepareStatement(
+	                    String.format("update service_request set status = " + status + " where id = " + reqId));
+	            ps.executeUpdate();
+	            ps.close();
+            } else {	// end request
+            	Date date = new Date(System.currentTimeMillis());
+            	PreparedStatement ps = conn.prepareStatement(
+	                    String.format("update service_request set status = " + status + " , end_date = '" + date.toString() + "' where id = " + reqId));
+	            ps.executeUpdate();
+	            ps.close();
+            }
 
         } catch (SQLException e) {
             System.err.println("Error in inserting new service request!");
