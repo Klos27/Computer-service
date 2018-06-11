@@ -1,8 +1,12 @@
 <%@ include file="../commons/header.jspf" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:if test="${not empty userNotification}">
 	<%-- Notify user about errrors --%>
 	<div class="user-request-notification"> ${userNotification} </div>
 </c:if>
+
+
+<jsp:useBean id="now" class="java.util.Date" />
 
 <h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Contract list<i class="fas fa-angle-right ml-3"></i></h1>
 
@@ -48,7 +52,14 @@
 						<%--<form action="/service/contracts?endContract=${ userContract.contractId }" method="post">--%>
 						<form action="/service/contracts" method="post">
 							<input type = "hidden" name="endContract" class="btn btn-danger" value = "${ userContract.contractId }" />
-							<input type = "submit" class="btn btn-danger" value = "End contract" />
+							<input type = "hidden" name="endDate" class="btn btn-danger" value = "${ userContract.dateEnd }" />
+							<c:if test="${ userContract.dateEnd  > now}">
+								<input type = "submit" class="btn btn-danger" value = "End contract" />
+							</c:if>
+							<c:if test="${ userContract.dateEnd <= now}">
+								<input type = "submit" class="btn btn-danger disabled" value = "End contract" />
+							</c:if>
+
 						</form>
 					</td>
 

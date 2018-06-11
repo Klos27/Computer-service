@@ -5,6 +5,10 @@ import models.UserContract;
 import services.AdminService;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -81,9 +85,19 @@ public class ContractsServlet extends HttpServlet {
 	private boolean endContract(HttpServletRequest request, HttpServletResponse response) {
 		AdminService adminService = new AdminService();
 		String contractIdParam = request.getParameter("endContract");
+		String endDateParam = request.getParameter("endDate");
+		Date now = new Date();
+		Date endDate = null;
+		if (endDateParam != null) {
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			try {
+				endDate = formatter.parse(endDateParam);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
 
-
-		if (contractIdParam != null) {
+		if (contractIdParam != null && endDate.after(now)) {
 			int contractId = Integer.parseInt(contractIdParam);
 			adminService.endContract(contractId);
 
