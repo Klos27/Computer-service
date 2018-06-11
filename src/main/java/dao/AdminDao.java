@@ -1,21 +1,14 @@
 package dao;
 
-import java.sql.Date;
+import models.User;
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
-import models.Message;
-import models.ServiceRequest;
-import models.Services;
-import models.User;
 
 public class AdminDao extends DAOManager {
 	
@@ -123,5 +116,36 @@ public class AdminDao extends DAOManager {
 		} finally {
 			close();
 		}
-	}  
+	}
+
+
+	public String endContract(int contractId) {
+
+		try {
+
+			String dateStr = java.time.LocalDate.now()+"";
+			open();
+			PreparedStatement ps = conn.prepareStatement(
+					String.format("update `contracts` set date_end = '%s' where id = %s", dateStr, contractId ));
+
+
+
+
+			int results = ps.executeUpdate();
+			if(results > 0) {
+				return "DONE";
+			}
+
+			ps.close();
+
+			return null;
+
+		} catch (SQLException e) {
+			System.err.println("Error while ending contract!");
+			e.printStackTrace();
+			return null;
+		} finally {
+			close();
+		}
+	}
 }

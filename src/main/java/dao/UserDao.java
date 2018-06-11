@@ -1,19 +1,12 @@
 package dao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.commons.codec.digest.DigestUtils;
-
-import models.Message;
 import models.ServiceRequest;
 import models.User;
+import models.UserContract;
+import org.apache.commons.codec.digest.DigestUtils;
+
+import java.sql.*;
+import java.util.ArrayList;
 
 public class UserDao extends DAOManager {
 	
@@ -264,4 +257,138 @@ public class UserDao extends DAOManager {
 	   }
 	   return null;
 	}
+
+	public ArrayList<UserContract> getUserContractsList()  {
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		ArrayList<UserContract> result = new ArrayList<>();
+
+		try {
+			open();
+			stmt = conn.createStatement();
+
+			// Execute operation
+			rs = stmt.executeQuery(String.format("SELECT c.id, id_user, first_name, last_name, role, date_start, date_end, salary" +
+					"  FROM `users_contracts` uc JOIN `users` u ON uc.id_user = u.id" +
+					" JOIN `contracts` c ON uc.id_contract = c.id WHERE role > 0"));
+
+			while (rs.next()) {
+				int contractId = rs.getInt("id");
+				int userId = rs.getInt("id_user");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				int role = rs.getInt("role");
+				Date dateStart = rs.getDate("date_start");
+				Date dateEnd = rs.getDate("date_end");
+				Double salary = rs.getDouble("salary");
+				UserContract userContract = new UserContract(contractId, userId, firstName, lastName, role, dateStart, dateEnd, salary);
+				result.add(userContract);
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Error at executing query");
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
+
+	public ArrayList<User> getWorkersWithoutContract()  {
+		Statement stmt = null;
+		ResultSet rs = null;
+
+		ArrayList<User> result = new ArrayList<>();
+
+		try {
+			open();
+			stmt = conn.createStatement();
+
+			// Execute operation
+			rs = stmt.executeQuery(String.format("SELECT id, first_name, last_name FROM `users` WHERE role > 0 " +
+					"AND id NOT IN " +
+					"(SELECT id_user FROM users_contracts uc JOIN " +
+					"contracts c ON uc.id_contract = c.id AND date_end > now() )"));
+
+			while (rs.next()) {
+
+				int userId = rs.getInt("id");
+				String firstName = rs.getString("first_name");
+				String lastName = rs.getString("last_name");
+				User user = new User(userId, firstName, lastName, null, -1, null, null);
+				result.add(user);
+			}
+
+		} catch (SQLException e) {
+			System.err.println("Error at executing query");
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return result;
+	}
+
+	public int addContract(String startDate, String endDate, double salary) {
+		Statement stmt = null;
+		ResultSet rs = null;
+		int id = -1;
+    	try {
+			open();
+			PreparedStatement ps = conn.prepareStatement(
+					String.format("INSERT INTO `contracts` (`id`, `date_start`, `date_end`, `salary`) " +
+									"VALUES (NULL, '%s', '%s', '%s')", startDate, endDate, salary));
+
+			ps.executeUpdate();
+			ps.close();
+
+			stmt = conn.createStatement();
+
+			// Execute operation
+			rs = stmt.executeQuery(String.format("SELECT max(id) from contracts"));
+
+			if (rs.next()) {
+				id = rs.getInt("max(id)");
+			}
+
+
+		} catch (SQLException e) {
+			System.err.println("Error in inserting new service request!");
+			e.printStackTrace();
+
+		} catch (Exception e) {
+			System.err.println("Error in ServiceRequestDao!");
+			e.printStackTrace();
+
+		}
+		finally {
+			close();
+		}
+		return id;
+	}
+
+	public void assignContractToUser(int userId, int contractId) {
+
+		try {
+			open();
+			PreparedStatement ps = conn.prepareStatement(
+					String.format("INSERT INTO `users_contracts` " +
+							"(`id_user`, `id_contract`) VALUES (%s, %s);", userId, contractId));
+
+			ps.executeUpdate();
+			ps.close();
+
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+
+		}
+		finally {
+			close();
+		}
+	}
+
 }
