@@ -81,6 +81,7 @@
 							<th>Name</th>
 							<th>Description</th>
 							<th>Price</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,6 +91,11 @@
 								<td align="center">${ requestService.name }</td>
 								<td align="center">${ requestService.description }</td>
 								<td align="center">${ requestService.price }</td>
+								<td align="center">
+									<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }&deleteService=${ requestService.id }" method="post">
+										<input type = "submit" class="btn btn-danger" value = "Delete" />
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>
@@ -132,6 +138,7 @@
 							<th>Part ID</th>
 							<th>Name</th>
 							<th>Price</th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -140,6 +147,11 @@
 								<td align="center">${ requestPart.id }</td>
 								<td align="center">${ requestPart.name }</td>
 								<td align="center">${ requestPart.price }</td>
+								<td align="center">
+									<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }&deletePart=${ requestPart.id }" method="post">
+										<input type = "submit" class="btn btn-danger" value = "Delete" />
+									</form>
+								</td>
 							</tr>
 						</c:forEach>
 						<tr>

@@ -192,7 +192,7 @@ public class ServicesDao extends DAOManager {
         }
     }
 
-    public double getServiceCurrentPrice(int serviceId) {
+    public double getCurrentServicePrice(int serviceId) {
         Statement stmt = null;
         ResultSet rs = null;
 

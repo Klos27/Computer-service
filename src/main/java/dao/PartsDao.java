@@ -191,7 +191,7 @@ public class PartsDao extends DAOManager{
         }
     }
 
-    public Double getPartCurrentPrice(int partId) {
+    public Double getCurrentPartPrice(int partId) {
         Statement stmt = null;
         ResultSet rs = null;
 

@@ -142,6 +142,8 @@ public class EditExistingRequestServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		addServiceOperation(request, response);
 		addPart(request, response);
+		deletePart(request, response);
+		deleteService(request, response);
 
 	}
 
@@ -177,5 +179,37 @@ public class EditExistingRequestServlet extends HttpServlet {
 		return false;
 	}
 
+	private boolean deletePart(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		ServiceRequestService serviceRequestService = new ServiceRequestService();
+		String partIdParam = request.getParameter("deletePart");
+		String reqIdStr = request.getParameter("requestId");
+
+
+		if (partIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			serviceRequestService.deletePartFromRequest(reqId, Integer.parseInt(partIdParam));
+			doGet(request, response);
+
+			return true;
+		}
+		return false;
+	}
+
+
+	private boolean deleteService(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+		ServiceRequestService serviceRequestService = new ServiceRequestService();
+		String serviceIdParam = request.getParameter("deleteService");
+		String reqIdStr = request.getParameter("requestId");
+
+
+		if (serviceIdParam != null && reqIdStr != null) {
+			int reqId = Integer.parseInt(reqIdStr);
+			serviceRequestService.deleteServiceFromRequest(reqId, Integer.parseInt(serviceIdParam));
+			doGet(request, response);
+
+			return true;
+		}
+		return false;
+	}
 }
 

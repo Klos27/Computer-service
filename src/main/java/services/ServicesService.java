@@ -25,7 +25,7 @@ public class ServicesService {
     }
 
     public void addServiceToRequest(int reqId, int serviceId) {
-        Double partCurrentPrice = servicesDao.getServiceCurrentPrice(serviceId);
+        Double partCurrentPrice = servicesDao.getCurrentServicePrice(serviceId);
         serviceRequestDao.addServiceToRequest(reqId, serviceId, partCurrentPrice);
     }
 }
