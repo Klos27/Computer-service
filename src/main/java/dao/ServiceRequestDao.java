@@ -1,20 +1,14 @@
 package dao;
 
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import models.Employee;
+import models.Message;
+import models.ServiceRequest;
+import models.User;
+
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-
-import models.Employee;
-import models.Message;
-
-import models.ServiceRequest;
-import models.User;
-import models.ServiceRequest;
 
 public class ServiceRequestDao extends DAOManager {
 	

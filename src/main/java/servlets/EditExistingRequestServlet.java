@@ -1,26 +1,8 @@
 package servlets;
 
-import java.io.IOException;
-
-import java.io.UnsupportedEncodingException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import dao.PartsDao;
 import dao.PaymentDao;
 import dao.ServiceRequestDao;
-import dao.ServicesDao;
 import models.Parts;
-import models.Payment;
 import models.ServiceRequest;
 import models.Services;
 import models.User;
@@ -28,6 +10,17 @@ import services.NotificationService;
 import services.PartsService;
 import services.ServiceRequestService;
 import services.ServicesService;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet("/service/existing-requests/edit")
 public class EditExistingRequestServlet extends HttpServlet {
@@ -144,7 +137,6 @@ public class EditExistingRequestServlet extends HttpServlet {
 		addPart(request, response);
 		deletePart(request, response);
 		deleteService(request, response);
-
 	}
 
 	private boolean addServiceOperation(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
