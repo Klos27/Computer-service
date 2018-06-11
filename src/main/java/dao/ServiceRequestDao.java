@@ -371,11 +371,18 @@ public class ServiceRequestDao extends DAOManager {
     public void changeRequestStatus(int reqId, int status) {
         try {
             open();
-
-            PreparedStatement ps = conn.prepareStatement(
-                    String.format("update service_request set status = " + status + " where id = " + reqId));
-            ps.executeUpdate();
-            ps.close();
+            if(status != 4) {
+	            PreparedStatement ps = conn.prepareStatement(
+	                    String.format("update service_request set status = " + status + " where id = " + reqId));
+	            ps.executeUpdate();
+	            ps.close();
+            } else {	// end request
+            	Date date = new Date(System.currentTimeMillis());
+            	PreparedStatement ps = conn.prepareStatement(
+	                    String.format("update service_request set status = " + status + " , end_date = '" + date.toString() + "' where id = " + reqId));
+	            ps.executeUpdate();
+	            ps.close();
+            }
 
         } catch (SQLException e) {
             System.err.println("Error in inserting new service request!");
