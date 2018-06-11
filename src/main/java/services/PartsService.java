@@ -12,6 +12,7 @@ import java.util.List;
 public class PartsService {
 
     private PartsDao partsDao = new PartsDao();
+    private ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
 
     public List<Parts> getAllParts() {
         return partsDao.getAllParts();
@@ -24,6 +25,11 @@ public class PartsService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addPartToRequest(int reqId, int partId) {
+        Double partCurrentPrice = partsDao.getPartCurrentPrice(partId);
+        serviceRequestDao.addPartToRequest(reqId, partId, partCurrentPrice);
     }
 
 }

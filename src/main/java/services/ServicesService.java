@@ -1,5 +1,6 @@
 package services;
 
+import dao.ServiceRequestDao;
 import dao.ServicesDao;
 import models.Services;
 
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 public class ServicesService {
     ServicesDao servicesDao = new ServicesDao();
+    ServiceRequestDao serviceRequestDao = new ServiceRequestDao();
 
     public ArrayList<Services> getAllServices(){
         return servicesDao.getAllServices();
@@ -20,5 +22,10 @@ public class ServicesService {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public void addServiceToRequest(int reqId, int serviceId) {
+        Double partCurrentPrice = servicesDao.getServiceCurrentPrice(serviceId);
+        serviceRequestDao.addServiceToRequest(reqId, serviceId, partCurrentPrice);
     }
 }

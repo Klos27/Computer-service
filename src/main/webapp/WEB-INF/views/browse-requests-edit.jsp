@@ -101,17 +101,18 @@
 					</tbody>
 				</table>
 				
-				<form action="">
+				<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }" method="post">
 					<div class="row">
 						<div class="col-6">
-							<select name="services" class="form-control">
+							<select name="addService" class="form-control">
 								<c:forEach items="${allServices}" var="service" >
-									<option>${service.name}</option>
+									<option value = ${service.id}>${service.name}</option>
 								</c:forEach>
 							</select>						
 						</div>
 						<div class="col-6">
-							<a href="#" class="btn btn-info">Add service</a>						
+							<input type = "submit" class="btn btn-info" value = "Add service" />
+							<%--<a href="" class="btn btn-info">Add service</a>--%>
 						</div>
 					</div>
 				</form>
@@ -148,18 +149,19 @@
 						</tr>
 					</tbody>
 				</table>
-				
-				<form action="">
+
+				<form action="/service/existing-requests/edit?requestId=${ requestDetails.id }" method="post">
 					<div class="row">
 						<div class="col-6">
-							<select name="parts" class="form-control">
+							<select name="addPart" class="form-control">
 								<c:forEach var="part" items="${allParts}">
-									<option>${part.name}</option>
+									<option value = ${part.id}>${part.name}</option>
 								</c:forEach>
 							</select>
 						</div>
 						<div class="col-6">
-							<a href="#" class="btn btn-info">Add part</a>
+							<input type = "submit" class="btn btn-info" value = "Add part" />
+							<%--<a href="#" class="btn btn-info">Add part</a>--%>
 						</div>
 					</div>
 				</form>
