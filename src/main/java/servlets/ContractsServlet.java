@@ -5,6 +5,7 @@ import models.UserContract;
 import services.AdminService;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,9 +27,18 @@ public class ContractsServlet extends HttpServlet {
 			request.setAttribute("requestError", "You are not logged in!");
 		} else {
 
+			List<User> usersWithoutContract = adminService.getWorkersWithoutContract();
+			request.setAttribute("usersWithoutContract", usersWithoutContract);
+
+
+
+
 			List<UserContract> userContractList = adminService.getContractList();
 			request.setAttribute("userContractList", userContractList);
 			request.getRequestDispatcher("/WEB-INF/views/contracts.jsp").forward(request, response);
+
+
+
 
 
 		}
@@ -37,10 +47,38 @@ public class ContractsServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		endContract(request, response);
+		addContract(request, response);
         doGet(request, response);
 	}
 
-	private boolean endContract(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+	private void addContract(HttpServletRequest request, HttpServletResponse response) {
+		AdminService adminService = new AdminService();
+
+
+
+
+		String userIdStr = request.getParameter("userId");
+		String startDate = request.getParameter("start_date");
+		String endDate = request.getParameter("end_date");
+		String salaryStr = request.getParameter("salary");
+
+		if (userIdStr != null) {
+
+			if (startDate == null || endDate == null || salaryStr == null ||
+					startDate.equals("") || endDate.equals("") || salaryStr.equals("")) {
+
+				request.setAttribute("userNotification", "Wrong data");
+			} else {
+				int userId = Integer.parseInt(userIdStr);
+				Double salary = Double.parseDouble(salaryStr);
+				if (salary > 0) {
+					adminService.addContract(userId, startDate, endDate, salary);
+				}
+			}
+		}
+	}
+
+	private boolean endContract(HttpServletRequest request, HttpServletResponse response) {
 		AdminService adminService = new AdminService();
 		String contractIdParam = request.getParameter("endContract");
 

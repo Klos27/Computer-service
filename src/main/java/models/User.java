@@ -22,7 +22,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public String getAddress() {
+	public User(int userId, String firstName, String lastName) {
+
+	}
+
+    public String getAddress() {
 		return address;
 	}
 

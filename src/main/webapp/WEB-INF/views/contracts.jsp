@@ -1,4 +1,8 @@
 <%@ include file="../commons/header.jspf" %>
+<c:if test="${not empty userNotification}">
+	<%-- Notify user about errrors --%>
+	<div class="user-request-notification"> ${userNotification} </div>
+</c:if>
 
 <h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Contract list<i class="fas fa-angle-right ml-3"></i></h1>
 
@@ -41,7 +45,9 @@
 					<td align="center">${ userContract.dateEnd }</td>
 					<td align="center">${ userContract.salary }</td>
 					<td align="center">
-						<form action="/service/contracts?endContract=${ userContract.contractId }" method="post">
+						<%--<form action="/service/contracts?endContract=${ userContract.contractId }" method="post">--%>
+						<form action="/service/contracts" method="post">
+							<input type = "hidden" name="endContract" class="btn btn-danger" value = "${ userContract.contractId }" />
 							<input type = "submit" class="btn btn-danger" value = "End contract" />
 						</form>
 					</td>
@@ -55,4 +61,39 @@
 
 </div>
 
+<h1 class="text-center mb-4"><i class="fas fa-angle-left mr-3"></i>Add contract<i class="fas fa-angle-right ml-3"></i></h1>
+
+<div class="col-md-10 offset-md-1">
+
+
+
+	<form action="/service/contracts" method="post">
+		<div class="row">
+			<div class="col-6">
+				<select name="userId" class="form-control">
+					<c:forEach items="${usersWithoutContract}" var="user">
+						<option value="${user.id}"> ${user.first_name} ${user.last_name}</option>
+					</c:forEach>
+				</select>
+				<div class="form-group">
+					<label for="start_date">Start date:</label>
+					<input type="date" name="start_date" id="start_date" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label for="end_date">End date:</label>
+					<input type="date" name="end_date" id="end_date" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<label for="salary">Salary:</label>
+					<input type="number" name="salary" id="salary" class="form-control"/>
+
+					<button type="submit" class="btn btn-info">Add contract</button>
+				</div>
+			</div>
+
+
+		</div>
+	</form>
+
+</div>
 <%@ include file="../commons/footer.jspf" %>
